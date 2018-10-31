@@ -1,7 +1,7 @@
 OpenMMD
 ------
 
-[OpenMMD](https://github.com/peterljq/OpenMMD) represents the OpenPose-based project that can directly **convert real-person videos to the motion of animation models (i.e. Miku, Anmicius)**. OpenMMD can be referred as OpenPose + MikuMikuDance (MMD). In short, you record a piece of video with human motions, through this project you will see a 3D model acting the same motions as you do in the video.
+[OpenMMD](https://github.com/peterljq/OpenMMD) represents the OpenPose-based project that can directly **convert real-person videos to the motion of animation models (i.e. Miku, Anmicius)**. OpenMMD can be referred as OpenPose + MikuMikuDance (MMD). In short, you record a piece of video with human motions, through this project you will see a 3D model acting the same motions as what you do in the video.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/peterljq/OpenMMD/master/Readme%20Materials/OpenMMD-Anmicius-Static.jpg" width="240">
@@ -9,13 +9,14 @@ OpenMMD
 
 <p align="center">3D model example: Anmicius</p>
 
-[OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) is the first real-time multi-person system proposed by Carnegie Mellon University used to jointly detect human body key points on single images or videos. [MMD](https://sites.google.com/view/evpvp/) is a freeware animation program that lets users animate and create 3D animated movies using 3D models like Miku and Anmicius.
+- [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) is the first real-time multi-person system proposed by Carnegie Mellon University used to jointly detect human body key points on single images or videos. 
+- [MMD](https://sites.google.com/view/evpvp/) is a freeware animation program that lets users animate and create 3D animated movies using 3D models like Miku and Anmicius.
 
 ## Features
 The projects implements multiple Deep Learning Models as a sequential chain. The output of the previous model will be fed as the input of the following. Some implementations are the editted version of the original for better performance in the application.
 - **Functionality**:
     - **3D Single-person Key Points Detection (OpenPose):**
-        - **Proposed by Gines Hidalgo, Zhe Cao, Tomas Simon, Shih-En Wei, Hanbyul Joo, and Yaser Sheikh ar CVPR 2017**.
+        - **Proposed by Gines Hidalgo, Zhe Cao, Tomas Simon, Shih-En Wei, Hanbyul Joo, and Yaser Sheikh at CVPR 2017**.
         - Recoded real-person video input and JSON files collections of motion key points as the output.
     - **Strong Baseline for 3d Human Pose Estimation**: 
         - **Proposed by Julieta Martinez, Rayat Hossain, Javier Romero, James J. Little In ICCV, 2017**. An effective baseline for 3d human pose estimation.
@@ -53,8 +54,7 @@ The projects implements multiple Deep Learning Models as a sequential chain. The
 
 
 ## Installation and Uninstallation
-**Download the full pack**: 
-- Note that the full application is about 5GB. Thats is mainly because the large size parameters of the pre-trained deep learning models. Download the whole pack contains the **pre-trained models with optimized parameters and corresponding compilable codes**. 
+**Download the full pack**: Note that the full application is about 5GB. Thats is mainly because the large size parameters of the pre-trained deep learning models. Download the whole pack contains the **pre-trained models with optimized parameters and corresponding compilable codes**. 
 
 - [Google Drive](https://drive.google.com/file/d/197CWR_aOAd4vNflhWlxWmRVsAmeG5S1F/view?usp=sharing)
 - [Baidu Netdisk （Temporarily Unavailable）](https://baidu.com)
@@ -98,6 +98,8 @@ pip install imageio
 
 ## Special Thanks
 I would like to give special thanks for the contribution from [Zhang Xinyi](https://github.com/zhangxinyi0106). As an expert in Photoshop and Video Processing, He offered great help in recording and processing the sample images and videos. He also offered nice ideas on how to improve video smoothing performance.
+
+I would like to say special thanks to [@miu200521358](https://github.com/miu200521358) who provides a series of detailed tutorials on OpenPose and relevant models. That really promotes my implementation progress. His versions of model implementations are also of great help. I learn a lot from his instructions on anaconda and tensorflow.
 
 ## Feedback
 This project is an open source project. Let me know if:
