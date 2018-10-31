@@ -1,0 +1,16 @@
+# property configurator test file
+
+log4cpp.rootCategory=ERROR, rootAppender
+log4cpp.category.GenTLCategory=ERROR, GenTLCategory
+
+log4cpp.appender.rootAppender=ConsoleAppender
+log4cpp.appender.rootAppender.layout=PatternLayout
+log4cpp.appender.rootAppender.layout.ConversionPattern=[%p] %d [%t] %m%n 
+
+log4cpp.appender.GenTLCategory=RollingFileAppender
+log4cpp.appender.GenTLCategory.fileName=$(ALLUSERSPROFILE)\Spinnaker\Logs\GenTL.log
+log4cpp.appender.GenTLCategory.append=true
+log4cpp.appender.GenTLCategory.maxFileSize=1000000
+log4cpp.appender.GenTLCategory.maxBackupIndex=5
+log4cpp.appender.GenTLCategory.layout=PatternLayout
+log4cpp.appender.GenTLCategory.layout.ConversionPattern=[%p] %d [%t] %m%n 

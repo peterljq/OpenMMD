@@ -1,0 +1,1597 @@
+<PGRControls PollingEnable="False" PollingFrequency="2000" DecimalPlaces="2" Debug="False">
+   <Maps>
+      <RepresentationTypeMap>
+         <Rules>
+            <Rule NodeName="GevCurrentIPAddress" Representation="IPV4Address"/>
+            <Rule NodeName="GevCurrentDefaultGateway" Representation="IPV4Address"/>
+            <Rule NodeName="GevPrimaryApplicationIPAddress" Representation="IPV4Address"/>
+            <Rule NodeName="GevCurrentSubnetMask" Representation="IPV4Address"/>
+            <Rule NodeName="GevPersistentIPAddress" Representation="IPV4Address"/>
+            <Rule NodeName="GevPersistentSubnetMask" Representation="IPV4Address"/>
+            <Rule NodeName="GevPersistentDefaultGateway" Representation="IPV4Address"/>
+            <Rule NodeName="GevMACAddress" Representation="MACAddress"/>
+			<Rule NodeName="GevDeviceIPAddress" Representation="IPV4Address"/>
+			<Rule NodeName="GevDeviceSubnetMask" Representation="IPV4Address"/>
+			<Rule NodeName="GevDeviceMACAddress" Representation="MACAddress"/>
+			<Rule NodeName="GevInterfaceIPAddress" Representation="IPV4Address"/>
+			<Rule NodeName="GevInterfaceSubnetMask" Representation="IPV4Address"/>
+			<Rule NodeName="GevInterfaceMACAddress" Representation="MACAddress"/>
+         </Rules>
+      </RepresentationTypeMap>
+      <ControlTypeMap>
+         <Rules>
+            <Rule NodeType="Float" Representation="Linear" ControlType="Slider"/>
+            <Rule NodeType="Float" Representation="HexNumber" ControlType="Label"/>
+            <Rule NodeType="Float" Representation="PureNumber" ControlType="Slider"/>
+            <Rule NodeType="Integer" Representation="Linear" ControlType="Slider"/>
+            <Rule NodeType="Integer" Representation="HexNumber" ControlType="EditBox"/>
+            <Rule NodeType="Integer" Representation="PureNumber" ControlType="EditBox"/>
+            <Rule NodeType="Integer" Representation="IPV4Address" ControlType="Label"/>
+            <Rule NodeType="Integer" Representation="MACAddress" ControlType="Label"/>
+            <Rule NodeType="Integer" Representation="Binary" ControlType="Label"/>
+         </Rules>
+      </ControlTypeMap>
+   </Maps>
+   <Dialogs>
+       <Dialog ControlID="dlg_sequencer" Title="Sequencer" Width="350" ChildID="tb_sequencer"/>
+       <Dialog ControlID="dlg_gpio" Title="GPIO" Width="350" ChildID="tb_gpio"/>
+       <Dialog ControlID="dlg_processing" Title="Processing" Width="350" ChildID="tb_processing"/>
+       <Dialog ControlID="dlg_image_format" Title="Image Format" Width="350" ChildID="tb_image_format"/>
+       <Dialog ControlID="dlg_settings" Title="Settings" Width="350" ChildID="tb_settings"/>
+       <Dialog ControlID="dlg_information" Title="Information" Width="350" ChildID="tb_information"/>
+	   <Dialog ControlID="dlg_file" Title="File Access" Width="350" ChildID="tb_file_control"/>
+   </Dialogs>
+   <Containers>
+   <Container ControlID="tb_file_control" ControlType="Table">
+		<BorderShow>False</BorderShow>
+         <GridLineShow>False</GridLineShow>
+         <RowCount>3</RowCount>
+         <ColumnCount>2</ColumnCount>
+         <Margin>0</Margin>
+         <ColumnWidth ColumnIndex="0">*</ColumnWidth> 
+         <ColumnWidth ColumnIndex="1">20</ColumnWidth>
+         <RowHeight RowIndex="0">10</RowHeight> 
+         <RowHeight RowIndex="1">auto</RowHeight> 
+         <RowHeight RowIndex="2">*</RowHeight> 
+         <ControlNameLabel>File Control</ControlNameLabel>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Children>
+            <Child id="ctrl_fileAccess" RowIndex="1" ColumnIndex="0"/>
+         </Children>
+      </Container>
+	  
+	  
+      <Container ControlID="tb_sequencer" ControlType="Table">
+ <BorderShow>False</BorderShow>
+         <GridLineShow>False</GridLineShow>
+         <RowCount>14</RowCount>
+         <ColumnCount>3</ColumnCount>
+         <Margin>0</Margin>
+         <ColumnWidth ColumnIndex="0">auto</ColumnWidth> 
+         <ColumnWidth ColumnIndex="1">*</ColumnWidth> 
+         <ColumnWidth ColumnIndex="2">20</ColumnWidth>
+         <RowHeight RowIndex="0">auto</RowHeight> 
+         <RowHeight RowIndex="1">auto</RowHeight> 
+         <RowHeight RowIndex="2">auto</RowHeight> 
+         <RowHeight RowIndex="3">auto</RowHeight> 
+         <RowHeight RowIndex="4">auto</RowHeight> 
+         <RowHeight RowIndex="5">auto</RowHeight> 
+         <RowHeight RowIndex="6">auto</RowHeight> 
+         <RowHeight RowIndex="7">auto</RowHeight> 
+         <RowHeight RowIndex="8">auto</RowHeight> 
+         <RowHeight RowIndex="9">auto</RowHeight> 
+         <RowHeight RowIndex="10">auto</RowHeight> 
+         <RowHeight RowIndex="11">auto</RowHeight> 
+         <RowHeight RowIndex="12">auto</RowHeight> 
+         <RowHeight RowIndex="13">auto</RowHeight> 
+         <RowHeight RowIndex="14">*</RowHeight>
+         <ControlNameLabel>Sequencer</ControlNameLabel>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Children>
+            <Child id="ctrl_sequencer_sequencer_sequencermode_label" RowIndex="0" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencermode" RowIndex="0" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencerconfigurationmode_label" RowIndex="1" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencerconfigurationmode" RowIndex="1" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencerfeatureselector_label" RowIndex="2" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencerfeatureselector" RowIndex="2" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencerfeatureenable_label" RowIndex="3" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencerfeatureenable" RowIndex="3" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetstart_label" RowIndex="4" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetstart" RowIndex="4" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetselector_label" RowIndex="5" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetselector" RowIndex="5" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencerpathselector_label" RowIndex="6" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencerpathselector" RowIndex="6" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencertriggersource_label" RowIndex="7" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencertriggersource" RowIndex="7" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencertriggeractivation_label" RowIndex="8" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencertriggeractivation" RowIndex="8" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetnext_label" RowIndex="9" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetnext" RowIndex="9" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetvalid_label" RowIndex="10" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetvalid" RowIndex="10" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencerconfigurationvalid_label" RowIndex="11" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencerconfigurationvalid" RowIndex="11" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetload_label" RowIndex="12" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetload" RowIndex="12" ColumnIndex="1"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetsave_label" RowIndex="13" ColumnIndex="0"/>
+            <Child id="ctrl_sequencer_sequencer_sequencersetsave" RowIndex="13" ColumnIndex="1"/>
+         </Children>
+      </Container>
+      <Container ControlID="tb_gpio" ControlType="Table">
+		<BorderShow>False</BorderShow>
+         <GridLineShow>False</GridLineShow>
+         <RowCount>20</RowCount>
+         <ColumnCount>3</ColumnCount>
+         <Margin>0</Margin>
+         <ColumnWidth ColumnIndex="0">auto</ColumnWidth> 
+         <ColumnWidth ColumnIndex="1">*</ColumnWidth> 
+         <ColumnWidth ColumnIndex="2">20</ColumnWidth>
+         <RowHeight RowIndex="0">auto</RowHeight> 
+         <RowHeight RowIndex="1">auto</RowHeight> 
+         <RowHeight RowIndex="2">auto</RowHeight> 
+         <RowHeight RowIndex="3">auto</RowHeight> 
+         <RowHeight RowIndex="4">auto</RowHeight> 
+         <RowHeight RowIndex="5">auto</RowHeight> 
+         <RowHeight RowIndex="6">auto</RowHeight> 
+         <RowHeight RowIndex="7">auto</RowHeight> 
+         <RowHeight RowIndex="8">auto</RowHeight> 
+         <RowHeight RowIndex="9">auto</RowHeight> 
+         <RowHeight RowIndex="10">auto</RowHeight> 
+         <RowHeight RowIndex="11">auto</RowHeight> 
+         <RowHeight RowIndex="12">auto</RowHeight> 
+         <RowHeight RowIndex="13">auto</RowHeight> 
+         <RowHeight RowIndex="14">auto</RowHeight> 
+         <RowHeight RowIndex="15">auto</RowHeight> 
+         <RowHeight RowIndex="16">auto</RowHeight> 
+		 <RowHeight RowIndex="17">auto</RowHeight> 
+         <RowHeight RowIndex="18">auto</RowHeight> 
+		 <RowHeight RowIndex="19">auto</RowHeight> 
+         <RowHeight RowIndex="20">*</RowHeight> 
+         <ControlNameLabel>GPIO</ControlNameLabel>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Children>
+            <Child id="ctrl_gpio_gpio_triggerselector_label" RowIndex="0" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_triggerselector" RowIndex="0" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_triggermode_label" RowIndex="1" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_triggermode" RowIndex="1" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_triggersoftware_label" RowIndex="2" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_triggersoftware" RowIndex="2" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_triggersource_label" RowIndex="3" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_triggersource" RowIndex="3" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_triggeractivation_label" RowIndex="4" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_triggeractivation" RowIndex="4" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_triggeroverlap_label" RowIndex="5" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_triggeroverlap" RowIndex="5" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_triggerdelay_label" RowIndex="6" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_triggerdelay" RowIndex="6" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_lineselector_label" RowIndex="7" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_lineselector" RowIndex="7" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_linemode_label" RowIndex="8" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_linemode" RowIndex="8" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_linestatus_label" RowIndex="9" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_linestatus" RowIndex="9" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_lineinverter_label" RowIndex="10" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_lineinverter" RowIndex="10" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_linesource_label" RowIndex="11" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_linesource" RowIndex="11" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_lineformat_label" RowIndex="12" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_lineformat" RowIndex="12" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_linestatusall_label" RowIndex="13" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_linestatusall" RowIndex="13" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_useroutputselector_label" RowIndex="14" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_useroutputselector" RowIndex="14" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_useroutputvalue_label" RowIndex="15" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_useroutputvalue" RowIndex="15" ColumnIndex="1"/>
+            <Child id="ctrl_gpio_gpio_useroutputvalueall_label" RowIndex="16" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_useroutputvalueall" RowIndex="16" ColumnIndex="1"/>		
+			<Child id="ctrl_gpio_gpio_inputfilterselector_label" RowIndex="17" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_inputfilterselector" RowIndex="17" ColumnIndex="1"/>		
+			<Child id="ctrl_gpio_gpio_linefilterwidth_label" RowIndex="18" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_linefilterwidth" RowIndex="18" ColumnIndex="1"/>		
+			<Child id="ctrl_gpio_gpio_33venable_label" RowIndex="19" ColumnIndex="0"/>
+            <Child id="ctrl_gpio_gpio_33venable" RowIndex="19" ColumnIndex="1"/>
+         </Children>
+      </Container>
+      <Container ControlID="tb_processing" ControlType="Table">
+        <BorderShow>False</BorderShow>
+         <GridLineShow>False</GridLineShow>
+         <RowCount>11</RowCount>
+         <ColumnCount>3</ColumnCount>
+         <Margin>0</Margin>
+         <ColumnWidth ColumnIndex="0">auto</ColumnWidth> 
+         <ColumnWidth ColumnIndex="1">*</ColumnWidth> 
+         <ColumnWidth ColumnIndex="2">20</ColumnWidth>
+         <RowHeight RowIndex="0">auto</RowHeight> 
+         <RowHeight RowIndex="1">auto</RowHeight> 
+         <RowHeight RowIndex="2">auto</RowHeight> 
+         <RowHeight RowIndex="3">auto</RowHeight> 
+         <RowHeight RowIndex="4">auto</RowHeight> 
+         <RowHeight RowIndex="5">auto</RowHeight> 
+         <RowHeight RowIndex="6">auto</RowHeight> 
+         <RowHeight RowIndex="7">auto</RowHeight> 
+         <RowHeight RowIndex="8">auto</RowHeight> 
+		 <RowHeight RowIndex="9">10</RowHeight> 
+         <RowHeight RowIndex="10">*</RowHeight> 
+         <ControlNameLabel>Processing</ControlNameLabel>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Children>
+            <Child id="ctrl_processing_processing_colortransformationselector_label" RowIndex="1" ColumnIndex="0"/>
+            <Child id="ctrl_processing_processing_colortransformationselector" RowIndex="1" ColumnIndex="1"/>
+            <Child id="ctrl_processing_processing_colortransformationenable_label" RowIndex="2" ColumnIndex="0"/>
+            <Child id="ctrl_processing_processing_colortransformationenable" RowIndex="2" ColumnIndex="1"/>
+			<Child id="ctrl_image_format_image_format_ispenable_label" RowIndex="3" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_ispenable" RowIndex="3" ColumnIndex="1"/>
+            <Child id="ctrl_processing_processing_colortransformationvalueselector_label" RowIndex="4" ColumnIndex="0"/>
+            <Child id="ctrl_processing_processing_colortransformationvalueselector" RowIndex="4" ColumnIndex="1"/>
+            <Child id="ctrl_processing_processing_colortransformationvalue_label" RowIndex="5" ColumnIndex="0"/>
+            <Child id="ctrl_processing_processing_colortransformationvalue" RowIndex="5" ColumnIndex="1"/>
+            <Child id="ctrl_processing_processing_rgbtransformlightsource_label" RowIndex="6" ColumnIndex="0"/>
+            <Child id="ctrl_processing_processing_rgbtransformlightsource" RowIndex="6" ColumnIndex="1"/>
+            <Child id="ctrl_processing_processing_saturationenable_label" RowIndex="7" ColumnIndex="0"/>
+            <Child id="ctrl_processing_processing_saturationenable" RowIndex="7" ColumnIndex="1"/>
+            <Child id="ctrl_processing_processing_saturation_label" RowIndex="8" ColumnIndex="0"/>
+            <Child id="ctrl_processing_processing_saturation" RowIndex="8" ColumnIndex="1"/>
+			<Child id="lut_lutcontrolpage" RowIndex="0" ColumnIndex="0" ColumnSpan="2" HorizontalAlignment="Left"/>
+         </Children>
+      </Container>
+      <Container ControlID="tb_image_format" ControlType="Table">
+         <BorderShow>False</BorderShow>
+         <GridLineShow>False</GridLineShow>
+         <RowCount>18</RowCount>
+         <ColumnCount>3</ColumnCount>
+         <Margin>0</Margin>
+         <ColumnWidth ColumnIndex="0">auto</ColumnWidth> 
+         <ColumnWidth ColumnIndex="1">*</ColumnWidth> 
+         <ColumnWidth ColumnIndex="2">20</ColumnWidth>
+         <RowHeight RowIndex="0">auto</RowHeight> 
+         <RowHeight RowIndex="1">auto</RowHeight> 
+         <RowHeight RowIndex="2">auto</RowHeight> 
+         <RowHeight RowIndex="3">auto</RowHeight> 
+         <RowHeight RowIndex="4">auto</RowHeight> 
+         <RowHeight RowIndex="5">auto</RowHeight> 
+         <RowHeight RowIndex="6">auto</RowHeight> 
+         <RowHeight RowIndex="7">auto</RowHeight> 
+         <RowHeight RowIndex="8">auto</RowHeight> 
+         <RowHeight RowIndex="9">auto</RowHeight> 
+         <RowHeight RowIndex="10">auto</RowHeight> 
+         <RowHeight RowIndex="11">auto</RowHeight> 
+         <RowHeight RowIndex="12">auto</RowHeight> 
+         <RowHeight RowIndex="13">auto</RowHeight> 
+         <RowHeight RowIndex="14">auto</RowHeight> 
+         <RowHeight RowIndex="15">auto</RowHeight> 
+         <RowHeight RowIndex="16">auto</RowHeight> 
+		 <RowHeight RowIndex="17">auto</RowHeight> 
+         <RowHeight RowIndex="18">*</RowHeight>
+         <ControlNameLabel>Image Format</ControlNameLabel>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Children>
+			<Child id="customimagecontrol" RowIndex="0" ColumnIndex="0" ColumnSpan="2"/>
+            <Child id="ctrl_image_format_image_format_width_label" RowIndex="1" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_width" RowIndex="1" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_height_label" RowIndex="2" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_height" RowIndex="2" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_offsetx_label" RowIndex="3" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_offsetx" RowIndex="3" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_offsety_label" RowIndex="4" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_offsety" RowIndex="4" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_pixelformat_label" RowIndex="5" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_pixelformat" RowIndex="5" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_binningselector_label" RowIndex="6" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_binningselector" RowIndex="6" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_binninghorizontal_label" RowIndex="7" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_binninghorizontal" RowIndex="7" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_binninghorizontalmode_label" RowIndex="8" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_binninghorizontalmode" RowIndex="8" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_binningvertical_label" RowIndex="9" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_binningvertical" RowIndex="9" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_binningverticalmode_label" RowIndex="10" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_binningverticalmode" RowIndex="10" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_decimationselector_label" RowIndex="11" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_decimationselector" RowIndex="11" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_decimationhorizontalmode_label" RowIndex="12" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_decimationhorizontalmode" RowIndex="12" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_decimationverticalmode_label" RowIndex="13" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_decimationverticalmode" RowIndex="13" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_decimationhorizontal_label" RowIndex="14" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_decimationhorizontal" RowIndex="14" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_decimationvertical_label" RowIndex="15" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_decimationvertical" RowIndex="15" ColumnIndex="1"/>
+            <Child id="ctrl_image_format_image_format_adcbitdepth_label" RowIndex="16" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_adcbitdepth" RowIndex="16" ColumnIndex="1"/>
+			<Child id="ctrl_image_format_image_format_ispenable_label" RowIndex="17" ColumnIndex="0"/>
+            <Child id="ctrl_image_format_image_format_ispenable" RowIndex="17" ColumnIndex="1"/>
+         </Children>
+      </Container>
+      <Container ControlID="tb_settings" ControlType="Table">
+		 <BorderShow>False</BorderShow>
+         <GridLineShow>False</GridLineShow>
+         <RowCount>21</RowCount>
+         <ColumnCount>3</ColumnCount>
+         <Margin>0</Margin>
+		 <NameLabelVisibility>Collapsed</NameLabelVisibility>
+         <ColumnWidth ColumnIndex="0">auto</ColumnWidth> 
+         <ColumnWidth ColumnIndex="1">*</ColumnWidth> 
+         <ColumnWidth ColumnIndex="2">20</ColumnWidth>
+         <RowHeight RowIndex="0">auto</RowHeight> 
+         <RowHeight RowIndex="1">auto</RowHeight> 
+         <RowHeight RowIndex="2">auto</RowHeight> 
+         <RowHeight RowIndex="3">auto</RowHeight> 
+         <RowHeight RowIndex="4">auto</RowHeight> 
+         <RowHeight RowIndex="5">auto</RowHeight> 
+         <RowHeight RowIndex="6">auto</RowHeight> 
+         <RowHeight RowIndex="7">auto</RowHeight> 
+         <RowHeight RowIndex="8">auto</RowHeight> 
+         <RowHeight RowIndex="9">auto</RowHeight> 
+         <RowHeight RowIndex="10">auto</RowHeight> 
+         <RowHeight RowIndex="11">auto</RowHeight> 
+         <RowHeight RowIndex="12">auto</RowHeight> 
+         <RowHeight RowIndex="13">auto</RowHeight> 
+         <RowHeight RowIndex="14">auto</RowHeight> 
+         <RowHeight RowIndex="15">auto</RowHeight> 
+         <RowHeight RowIndex="16">auto</RowHeight> 
+         <RowHeight RowIndex="17">auto</RowHeight> 
+         <RowHeight RowIndex="18">auto</RowHeight> 
+         <RowHeight RowIndex="19">auto</RowHeight> 
+         <RowHeight RowIndex="20">auto</RowHeight> 
+         <RowHeight RowIndex="21">*</RowHeight>
+         <Children>
+            <Child id="ctrl_settings_settings_acquisitionmode_label" RowIndex="0" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_acquisitionmode" RowIndex="0" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_acquisitionframerateenable_label" RowIndex="1" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_acquisitionframerateenable" RowIndex="1" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_acquisitionframerate_label" RowIndex="2" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_acquisitionframerate" RowIndex="2" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_exposuremode_label" RowIndex="5" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_exposuremode" RowIndex="5" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_exposuretime_label" RowIndex="7" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_exposuretime" RowIndex="7" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_exposureauto_label" RowIndex="6" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_exposureauto" RowIndex="6" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_autoexposureexposuretimelowerlimit_label" RowIndex="8" ColumnIndex="0" />
+            <Child id="ctrl_autoexposurerangecontrol" RowIndex="8" ColumnIndex="1" />
+            <Child id="ctrl_settings_settings_gainauto_label" RowIndex="10" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_gainauto" RowIndex="10" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_gain_label" RowIndex="11" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_gain" RowIndex="11" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_gammaenable_label" RowIndex="12" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_gammaenable" RowIndex="12" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_gamma_label" RowIndex="13" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_gamma" RowIndex="13" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_blacklevelselector_label" RowIndex="14" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_blacklevelselector" RowIndex="14" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_blacklevel_label" RowIndex="15" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_blacklevel" RowIndex="15" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_balanceratioselector_label" RowIndex="16" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_balanceratioselector" RowIndex="16" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_balanceratio_label" RowIndex="17" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_balanceratio" RowIndex="17" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_balancewhiteauto_label" RowIndex="18" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_balancewhiteauto" RowIndex="18" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_devicelinkthroughputlimit_label" RowIndex="19" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_devicelinkthroughputlimit" RowIndex="19" ColumnIndex="1"/>
+            <Child id="ctrl_settings_settings_devicelinkcurrentthroughput_label" RowIndex="20" ColumnIndex="0"/>
+            <Child id="ctrl_settings_settings_devicelinkcurrentthroughput" RowIndex="20" ColumnIndex="1"/>
+         </Children>
+      </Container>
+      <Container ControlID="tb_information" ControlType="Table">
+ <BorderShow>False</BorderShow>
+         <GridLineShow>False</GridLineShow>
+         <RowCount>8</RowCount>
+         <ColumnCount>3</ColumnCount>
+         <Margin>0</Margin>
+         <ColumnWidth ColumnIndex="0">auto</ColumnWidth> 
+         <ColumnWidth ColumnIndex="1">*</ColumnWidth> 
+         <ColumnWidth ColumnIndex="2">20</ColumnWidth>
+         <RowHeight RowIndex="0">auto</RowHeight> 
+         <RowHeight RowIndex="1">auto</RowHeight> 
+         <RowHeight RowIndex="2">auto</RowHeight> 
+         <RowHeight RowIndex="3">auto</RowHeight> 
+         <RowHeight RowIndex="4">auto</RowHeight> 
+         <RowHeight RowIndex="5">auto</RowHeight> 
+         <RowHeight RowIndex="6">auto</RowHeight> 
+         <RowHeight RowIndex="7">*</RowHeight>
+         <ControlNameLabel>Information</ControlNameLabel>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Children>
+            <Child id="ctrl_information_information_devicemodelname_label" RowIndex="0" ColumnIndex="0"/>
+            <Child id="ctrl_information_information_devicemodelname" RowIndex="0" ColumnIndex="1"/>
+            <Child id="ctrl_information_information_deviceserialnumber_label" RowIndex="1" ColumnIndex="0"/>
+            <Child id="ctrl_information_information_deviceserialnumber" RowIndex="1" ColumnIndex="1"/>
+            <Child id="ctrl_information_information_devicefirmwareversion_label" RowIndex="2" ColumnIndex="0"/>
+            <Child id="ctrl_information_information_devicefirmwareversion" RowIndex="2" ColumnIndex="1"/>
+			<Child id="ctrl_information_information_gevmacaddress_label" RowIndex="3" ColumnIndex="0"/>
+            <Child id="ctrl_information_information_gevmacaddress" RowIndex="3" ColumnIndex="1"/>
+            <Child id="ctrl_information_information_gevcurrentipaddress_label" RowIndex="4" ColumnIndex="0"/>
+            <Child id="ctrl_information_information_gevcurrentipaddress" RowIndex="4" ColumnIndex="1"/>
+            <Child id="ctrl_information_information_gevcurrentsubnetmask_label" RowIndex="5" ColumnIndex="0"/>
+            <Child id="ctrl_information_information_gevcurrentsubnetmask" RowIndex="5" ColumnIndex="1"/>
+            <Child id="ctrl_information_information_gevcurrentdefaultgateway_label" RowIndex="6" ColumnIndex="0"/>
+            <Child id="ctrl_information_information_gevcurrentdefaultgateway" RowIndex="6" ColumnIndex="1"/>
+         </Children>
+      </Container>
+   </Containers>
+   <Controls>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencermode" ControlType="ComboBox">
+         <NodeToControl>SequencerMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencermode_label" ControlType="Label">
+         <NodeToControl>SequencerMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencerconfigurationmode" ControlType="ComboBox">
+         <NodeToControl>SequencerConfigurationMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencerconfigurationmode_label" ControlType="Label">
+         <NodeToControl>SequencerConfigurationMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencerfeatureselector" ControlType="ComboBox">
+         <NodeToControl>SequencerFeatureSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencerfeatureselector_label" ControlType="Label">
+         <NodeToControl>SequencerFeatureSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencerfeatureenable" ControlType="CheckBox">
+         <NodeToControl>SequencerFeatureEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencerfeatureenable_label" ControlType="Label">
+         <NodeToControl>SequencerFeatureEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetstart" ControlType="Slider">
+         <NodeToControl>SequencerSetStart</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetstart_label" ControlType="Label">
+         <NodeToControl>SequencerSetStart</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetselector" ControlType="Slider">
+         <NodeToControl>SequencerSetSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetselector_label" ControlType="Label">
+         <NodeToControl>SequencerSetSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencerpathselector" ControlType="Slider">
+         <NodeToControl>SequencerPathSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencerpathselector_label" ControlType="Label">
+         <NodeToControl>SequencerPathSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencertriggersource" ControlType="ComboBox">
+         <NodeToControl>SequencerTriggerSource</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencertriggersource_label" ControlType="Label">
+         <NodeToControl>SequencerTriggerSource</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencertriggeractivation" ControlType="ComboBox">
+         <NodeToControl>SequencerTriggerActivation</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencertriggeractivation_label" ControlType="Label">
+         <NodeToControl>SequencerTriggerActivation</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetnext" ControlType="Slider">
+         <NodeToControl>SequencerSetNext</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetnext_label" ControlType="Label">
+         <NodeToControl>SequencerSetNext</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetvalid" ControlType="Label">
+         <NodeToControl>SequencerSetValid</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetvalid_label" ControlType="Label">
+         <NodeToControl>SequencerSetValid</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencerconfigurationvalid" ControlType="Label">
+         <NodeToControl>SequencerConfigurationValid</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencerconfigurationvalid_label" ControlType="Label">
+         <NodeToControl>SequencerConfigurationValid</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetload" ControlType="Button">
+         <NodeToControl>SequencerSetLoad</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetload_label" ControlType="Label">
+         <NodeToControl>SequencerSetLoad</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetsave" ControlType="Button">
+         <NodeToControl>SequencerSetSave</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_sequencer_sequencer_sequencersetsave_label" ControlType="Label">
+         <NodeToControl>SequencerSetSave</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggerselector" ControlType="ComboBox">
+         <NodeToControl>TriggerSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggerselector_label" ControlType="Label">
+         <NodeToControl>TriggerSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggermode" ControlType="ComboBox">
+         <NodeToControl>TriggerMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggermode_label" ControlType="Label">
+         <NodeToControl>TriggerMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggersoftware" ControlType="Button">
+         <NodeToControl>TriggerSoftware</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggersoftware_label" ControlType="Label">
+         <NodeToControl>TriggerSoftware</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggersource" ControlType="ComboBox">
+         <NodeToControl>TriggerSource</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggersource_label" ControlType="Label">
+         <NodeToControl>TriggerSource</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggeractivation" ControlType="ComboBox">
+         <NodeToControl>TriggerActivation</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggeractivation_label" ControlType="Label">
+         <NodeToControl>TriggerActivation</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggeroverlap" ControlType="ComboBox">
+         <NodeToControl>TriggerOverlap</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggeroverlap_label" ControlType="Label">
+         <NodeToControl>TriggerOverlap</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggerdelay" ControlType="Slider">
+         <NodeToControl>TriggerDelay</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_triggerdelay_label" ControlType="Label">
+         <NodeToControl>TriggerDelay</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_lineselector" ControlType="ComboBox">
+         <NodeToControl>LineSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_lineselector_label" ControlType="Label">
+         <NodeToControl>LineSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_linemode" ControlType="ComboBox">
+         <NodeToControl>LineMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_linemode_label" ControlType="Label">
+         <NodeToControl>LineMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_linestatus" ControlType="Label">
+         <NodeToControl>LineStatus</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_linestatus_label" ControlType="Label">
+         <NodeToControl>LineStatus</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_lineinverter" ControlType="CheckBox">
+         <NodeToControl>LineInverter</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_lineinverter_label" ControlType="Label">
+         <NodeToControl>LineInverter</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_linesource" ControlType="ComboBox">
+         <NodeToControl>LineSource</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_linesource_label" ControlType="Label">
+         <NodeToControl>LineSource</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_lineformat" ControlType="Label">
+         <NodeToControl>LineFormat</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_lineformat_label" ControlType="Label">
+         <NodeToControl>LineFormat</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_linestatusall" ControlType="Label">
+         <NodeToControl>LineStatusAll</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_linestatusall_label" ControlType="Label">
+         <NodeToControl>LineStatusAll</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_useroutputselector" ControlType="ComboBox">
+         <NodeToControl>UserOutputSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_useroutputselector_label" ControlType="Label">
+         <NodeToControl>UserOutputSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_useroutputvalue" ControlType="CheckBox">
+         <NodeToControl>UserOutputValue</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_useroutputvalue_label" ControlType="Label">
+         <NodeToControl>UserOutputValue</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_useroutputvalueall" ControlType="Slider">
+         <NodeToControl>UserOutputValueAll</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_useroutputvalueall_label" ControlType="Label">
+         <NodeToControl>UserOutputValueAll</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+	 <Control ControlID="ctrl_gpio_gpio_inputfilterselector" ControlType="ComboBox">
+         <NodeToControl>LineInputFilterSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_inputfilterselector_label" ControlType="Label">
+         <NodeToControl>LineInputFilterSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+	 <Control ControlID="ctrl_gpio_gpio_linefilterwidth" ControlType="Slider">
+         <NodeToControl>LineFilterWidth</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_linefilterwidth_label" ControlType="Label">
+         <NodeToControl>LineFilterWidth</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+     </Control>
+	 <Control ControlID="ctrl_gpio_gpio_33venable" ControlType="CheckBox">
+         <NodeToControl>V3_3Enable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_gpio_gpio_33venable_label" ControlType="Label">
+         <NodeToControl>V3_3Enable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+     </Control>
+      <Control ControlID="ctrl_processing_processing_lutselector" ControlType="ComboBox">
+         <NodeToControl>LUTSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_lutselector_label" ControlType="Label">
+         <NodeToControl>LUTSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_lutenable" ControlType="CheckBox">
+         <NodeToControl>LUTEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_lutenable_label" ControlType="Label">
+         <NodeToControl>LUTEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_lutindex" ControlType="Slider">
+         <NodeToControl>LUTIndex</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_lutindex_label" ControlType="Label">
+         <NodeToControl>LUTIndex</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_lutvalue" ControlType="Slider">
+         <NodeToControl>LUTValue</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_lutvalue_label" ControlType="Label">
+         <NodeToControl>LUTValue</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_lutvalueall" ControlType="EditBox">
+         <NodeToControl>LUTValueAll</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_lutvalueall_label" ControlType="Label">
+         <NodeToControl>LUTValueAll</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_colortransformationselector" ControlType="ComboBox">
+         <NodeToControl>ColorTransformationSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_colortransformationselector_label" ControlType="Label">
+         <NodeToControl>ColorTransformationSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_colortransformationenable" ControlType="CheckBox">
+         <NodeToControl>ColorTransformationEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_colortransformationenable_label" ControlType="Label">
+         <NodeToControl>ColorTransformationEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_colortransformationvalueselector" ControlType="ComboBox">
+         <NodeToControl>ColorTransformationValueSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_colortransformationvalueselector_label" ControlType="Label">
+         <NodeToControl>ColorTransformationValueSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_colortransformationvalue" ControlType="Slider">
+         <NodeToControl>ColorTransformationValue</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_colortransformationvalue_label" ControlType="Label">
+         <NodeToControl>ColorTransformationValue</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_rgbtransformlightsource" ControlType="ComboBox">
+         <NodeToControl>RgbTransformLightSource</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_rgbtransformlightsource_label" ControlType="Label">
+         <NodeToControl>RgbTransformLightSource</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_saturationenable" ControlType="CheckBox">
+         <NodeToControl>SaturationEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_saturationenable_label" ControlType="Label">
+         <NodeToControl>SaturationEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_saturation" ControlType="Slider">
+         <NodeToControl>Saturation</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_processing_processing_saturation_label" ControlType="Label">
+         <NodeToControl>Saturation</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_width" ControlType="Slider">
+         <NodeToControl>Width</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_width_label" ControlType="Label">
+         <NodeToControl>Width</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_height" ControlType="Slider">
+         <NodeToControl>Height</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_height_label" ControlType="Label">
+         <NodeToControl>Height</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_offsetx" ControlType="Slider">
+         <NodeToControl>OffsetX</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_offsetx_label" ControlType="Label">
+         <NodeToControl>OffsetX</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_offsety" ControlType="Slider">
+         <NodeToControl>OffsetY</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_offsety_label" ControlType="Label">
+         <NodeToControl>OffsetY</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_pixelformat" ControlType="ComboBox">
+         <NodeToControl>PixelFormat</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_pixelformat_label" ControlType="Label">
+         <NodeToControl>PixelFormat</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_ispenable" ControlType="CheckBox">
+         <NodeToControl>IspEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_ispenable_label" ControlType="Label">
+         <NodeToControl>IspEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_binningselector" ControlType="ComboBox">
+         <NodeToControl>BinningSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_binningselector_label" ControlType="Label">
+         <NodeToControl>BinningSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_binninghorizontal" ControlType="Slider">
+         <NodeToControl>BinningHorizontal</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_binninghorizontal_label" ControlType="Label">
+         <NodeToControl>BinningHorizontal</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_binninghorizontalmode" ControlType="ComboBox">
+         <NodeToControl>BinningHorizontalMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_binninghorizontalmode_label" ControlType="Label">
+         <NodeToControl>BinningHorizontalMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_binningvertical" ControlType="Slider">
+         <NodeToControl>BinningVertical</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_binningvertical_label" ControlType="Label">
+         <NodeToControl>BinningVertical</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_binningverticalmode" ControlType="ComboBox">
+         <NodeToControl>BinningVerticalMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_binningverticalmode_label" ControlType="Label">
+         <NodeToControl>BinningVerticalMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_decimationselector" ControlType="ComboBox">
+         <NodeToControl>DecimationSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_decimationselector_label" ControlType="Label">
+         <NodeToControl>DecimationSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_decimationhorizontalmode" ControlType="ComboBox">
+         <NodeToControl>DecimationHorizontalMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_decimationhorizontalmode_label" ControlType="Label">
+         <NodeToControl>DecimationHorizontalMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_decimationverticalmode" ControlType="ComboBox">
+         <NodeToControl>DecimationVerticalMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_decimationverticalmode_label" ControlType="Label">
+         <NodeToControl>DecimationVerticalMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_decimationhorizontal" ControlType="Slider">
+         <NodeToControl>DecimationHorizontal</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_decimationhorizontal_label" ControlType="Label">
+         <NodeToControl>DecimationHorizontal</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_decimationvertical" ControlType="Slider">
+         <NodeToControl>DecimationVertical</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_decimationvertical_label" ControlType="Label">
+         <NodeToControl>DecimationVertical</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_adcbitdepth" ControlType="ComboBox">
+         <NodeToControl>AdcBitDepth</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_image_format_image_format_adcbitdepth_label" ControlType="Label">
+         <NodeToControl>AdcBitDepth</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_acquisitionmode" ControlType="ComboBox">
+         <NodeToControl>AcquisitionMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_acquisitionmode_label" ControlType="Label">
+         <NodeToControl>AcquisitionMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_acquisitionframerateenable" ControlType="CheckBox">
+         <NodeToControl>AcquisitionFrameRateEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_acquisitionframerateenable_label" ControlType="Label">
+         <NodeToControl>AcquisitionFrameRateEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_acquisitionframerate" ControlType="Slider">
+         <NodeToControl>AcquisitionFrameRate</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_acquisitionframerate_label" ControlType="Label">
+         <NodeToControl>AcquisitionFrameRate</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_acquisitionresultingframerate" ControlType="Label">
+         <NodeToControl>AcquisitionResultingFrameRate</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_acquisitionresultingframerate_label" ControlType="Label">
+         <NodeToControl>AcquisitionResultingFrameRate</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_acquisitionframecount" ControlType="Slider">
+         <NodeToControl>AcquisitionFrameCount</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_acquisitionframecount_label" ControlType="Label">
+         <NodeToControl>AcquisitionFrameCount</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_exposuremode" ControlType="ComboBox">
+         <NodeToControl>ExposureMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_exposuremode_label" ControlType="Label">
+         <NodeToControl>ExposureMode</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_exposuretime" ControlType="LogSlider">
+         <NodeToControl>ExposureTime</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_exposuretime_label" ControlType="Label">
+         <NodeToControl>ExposureTime</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_exposureauto" ControlType="ComboBox">
+         <NodeToControl>ExposureAuto</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_exposureauto_label" ControlType="Label">
+         <NodeToControl>ExposureAuto</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_autoexposureexposuretimelowerlimit" ControlType="Slider">
+         <NodeToControl>AutoExposureExposureTimeLowerLimit</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_autoexposureexposuretimelowerlimit_label" ControlType="Label">
+         <NodeToControl>AutoExposureExposureTimeLowerLimit</NodeToControl> 
+		 <ControlNameLabel>Auto Exposure Time Limit</ControlNameLabel>
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_autoexposureexposuretimeupperlimit" ControlType="Slider">
+         <NodeToControl>AutoExposureExposureTimeUpperLimit</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_autoexposureexposuretimeupperlimit_label" ControlType="Label">
+         <NodeToControl>AutoExposureExposureTimeUpperLimit</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_gainauto" ControlType="ComboBox">
+         <NodeToControl>GainAuto</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_gainauto_label" ControlType="Label">
+         <NodeToControl>GainAuto</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_gain" ControlType="Slider">
+         <NodeToControl>Gain</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_gain_label" ControlType="Label">
+         <NodeToControl>Gain</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_gammaenable" ControlType="CheckBox">
+         <NodeToControl>GammaEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_gammaenable_label" ControlType="Label">
+         <NodeToControl>GammaEnable</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_gamma" ControlType="Slider">
+         <NodeToControl>Gamma</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_gamma_label" ControlType="Label">
+         <NodeToControl>Gamma</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_blacklevelselector" ControlType="ComboBox">
+         <NodeToControl>BlackLevelSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_blacklevelselector_label" ControlType="Label">
+         <NodeToControl>BlackLevelSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_blacklevel" ControlType="Slider">
+         <NodeToControl>BlackLevel</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_blacklevel_label" ControlType="Label">
+         <NodeToControl>BlackLevel</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_balanceratioselector" ControlType="ComboBox">
+         <NodeToControl>BalanceRatioSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_balanceratioselector_label" ControlType="Label">
+         <NodeToControl>BalanceRatioSelector</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_balanceratio" ControlType="Slider">
+         <NodeToControl>BalanceRatio</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_balanceratio_label" ControlType="Label">
+         <NodeToControl>BalanceRatio</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_balancewhiteauto" ControlType="ComboBox">
+         <NodeToControl>BalanceWhiteAuto</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_balancewhiteauto_label" ControlType="Label">
+         <NodeToControl>BalanceWhiteAuto</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_devicelinkthroughputlimit" ControlType="Slider">
+         <NodeToControl>DeviceLinkThroughputLimit</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_devicelinkthroughputlimit_label" ControlType="Label">
+         <NodeToControl>DeviceLinkThroughputLimit</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_devicelinkcurrentthroughput" ControlType="Label">
+         <NodeToControl>DeviceLinkCurrentThroughput</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_settings_settings_devicelinkcurrentthroughput_label" ControlType="Label">
+         <NodeToControl>DeviceLinkCurrentThroughput</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_devicemodelname" ControlType="Label">
+         <NodeToControl>DeviceModelName</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_devicemodelname_label" ControlType="Label">
+         <NodeToControl>DeviceModelName</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_deviceserialnumber" ControlType="Label">
+         <NodeToControl>DeviceSerialNumber</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_deviceserialnumber_label" ControlType="Label">
+         <NodeToControl>DeviceSerialNumber</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_devicefirmwareversion" ControlType="Label">
+         <NodeToControl>DeviceFirmwareVersion</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_devicefirmwareversion_label" ControlType="Label">
+         <NodeToControl>DeviceFirmwareVersion</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+	  	<Control ControlID="customimagecontrol" ControlType="CustomImage">
+		<NameLabelVisibility>Collapsed</NameLabelVisibility>
+		<NameLabelBoldness>False</NameLabelBoldness>
+		<ControlWidth>420</ControlWidth>
+		<Margin>0</Margin>
+	</Control>
+	<Control ControlID="ctrl_autoexposurerangecontrol" ControlType="RangeSlider">
+		<LowerLimitNode>AutoExposureExposureTimeLowerLimit</LowerLimitNode>
+		<UpperLimitNode>AutoExposureExposureTimeUpperLimit</UpperLimitNode>
+		<ControlNameLabel>Auto ExposureTime Range</ControlNameLabel>
+		<NameLabelBoldness>False</NameLabelBoldness>
+		<LabelAppearOnTop>True</LabelAppearOnTop>
+		<NameLabelVisibility>Collapsed</NameLabelVisibility>
+		<UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+		<EditBoxWidthMin>60</EditBoxWidthMin>
+	</Control>
+	    <Control ControlID="lut_lutcontrolpage" ControlType="LUT">
+		<NameLabelBoldness>False</NameLabelBoldness>
+		<ControlWidth>400</ControlWidth>
+		<ControlHeight>350</ControlHeight>
+		<Margin>0</Margin>
+	</Control>
+	 <Control ControlID="ctrl_information_information_gevmacaddress" ControlType="Label">
+         <NodeToControl>GevMACAddress</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_gevmacaddress_label" ControlType="Label">
+         <NodeToControl>GevMACAddress</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_gevcurrentipaddress" ControlType="Label">
+         <NodeToControl>GevCurrentIPAddress</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_gevcurrentipaddress_label" ControlType="Label">
+         <NodeToControl>GevCurrentIPAddress</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_gevcurrentsubnetmask" ControlType="Label">
+         <NodeToControl>GevCurrentSubnetMask</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_gevcurrentsubnetmask_label" ControlType="Label">
+         <NodeToControl>GevCurrentSubnetMask</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_gevcurrentdefaultgateway" ControlType="Label">
+         <NodeToControl>GevCurrentDefaultGateway</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <Margin>0</Margin>
+         <UnitLabelVisibility>Collapsed</UnitLabelVisibility>
+         <NameLabelVisibility>Collapsed</NameLabelVisibility>
+      </Control>
+      <Control ControlID="ctrl_information_information_gevcurrentdefaultgateway_label" ControlType="Label">
+         <NodeToControl>GevCurrentDefaultGateway</NodeToControl> 
+         <NameLabelBoldness>False</NameLabelBoldness>
+         <ContentVisibility>Collapsed</ContentVisibility>
+      </Control>
+	  <Control ControlID="ctrl_fileAccess" ControlType="FileAccess">
+         <Margin>0</Margin>
+      </Control>
+   </Controls>
+	<StatusBarControls>
+		<Category Name="Display" Tooltip="Basic Info Category">
+			<Item Namespace="ViewerCtrl" Name="Cursor Position" Type="CursorPosition" Onoff="True" Tooltip="Current Cursor Position"/>
+			<Item Namespace="ViewerCtrl" Name="Pixel Value" Type="PixelValue" Onoff="False" Tooltip="Pixel value at cursor location"/>
+			<Item Namespace="ViewerCtrl" Name="Zoom Level" Type="ZoomLevel" Onoff="True" Tooltip="Current image zoom level"/>
+			<Item Namespace="ViewerCtrl" Name="Display Resolution" Type="DisplaySize" Onoff="False"/>
+		</Category>
+		<Category Name="Framerates">
+			<Item Namespace="ViewerCtrl" Name="Processed FPS" Type="ProcessedFPS" Onoff="True"/>
+			<Item Namespace="ViewerCtrl" Name="Display FPS" Type="DisplayFPS" Onoff="False"/>
+			<Item Namespace="ViewerCtrl" Name="Received FPS" Type="ReceivedFPS" Onoff="True"/>
+		</Category>
+		<Category Name="CPU Timestamp">
+			<Item Namespace="ViewerCtrl" Name="Seconds" Type="Seconds" Onoff="False"/>
+			<Item Namespace="ViewerCtrl" Name="Millisecond" Type="Millisecond" Onoff="False"/>
+		</Category>
+		<Category Name="Image Info">
+			<Item Namespace="ViewerCtrl" Name="Width" Type="Width" Onoff="False"/>
+			<Item Namespace="ViewerCtrl" Name="Height" Type="Height" Onoff="False"/>
+			<Item Namespace="ViewerCtrl" Name="Pixel Format" Type="PixelFormat" Onoff="True"/>
+			<Item Namespace="ViewerCtrl" Name="BPP" Type="BPP" Onoff="False"/>
+			<Item Namespace="ViewerCtrl" Name="Timestamp" Type="Timestamp" Onoff="False" Tooltip="Device Timestamp in nanosecond"/>
+			<Item Namespace="ViewerCtrl" Name="FrameId" Type="FrameID" Onoff="False"/>
+		</Category>
+		<Category Name="Chunk Data">
+			<SubCategory Name="Chunk Data Status">
+					<Item Namespace="GenICam" Name="ChunkModeActive" Onoff="False"/>
+					<Item Namespace="GenICam" Name="ChunkSelector" Onoff="False"/>
+					<Item Namespace="GenICam" Name="ChunkEnable" Onoff="False"/>
+			</SubCategory>
+			<Item Namespace="GenICam" Name="ChunkBlackLevel" Onoff="False"/>
+			<Item Namespace="GenICam" Name="ChunkExposureTime" Onoff="False"/>
+			<Item Namespace="GenICam" Name="ChunkFrameCounter" Onoff="False"/>
+			<Item Namespace="GenICam" Name="ChunkGain" DecimalPlaces="7" Onoff="False"/>
+		</Category>
+		<Category Name="Stream Info">
+			<Item Namespace="Stream" Name="StreamID" Onoff="False"/>
+			<Item Namespace="Stream" Name="StreamType" Onoff="False"/>
+			<Item Namespace="Stream" Name="StreamDefaultBufferCount" Onoff="False"/>
+			<Item Namespace="Stream" Name="StreamBufferHandlingMode" Onoff="False"/>
+		</Category>
+		<Category Name="Diagnostic Info">
+			<Item Namespace="GenICam" Name="DeviceTemperature" Onoff="False"/>
+			<Item Namespace="Stream" Name="GevTotalPacketCount" Onoff="False"/>
+			<Item Namespace="Stream" Name="GevFailedPacketCount" Onoff="False"/>
+			<Item Namespace="Stream" Name="GevResendPacketCount" Onoff="False"/>			
+			<Item Namespace="Stream" Name="GevResendRequestCount" Onoff="False"/>
+			<Item Namespace="GenICam" Name="TransmitFailureCount" Onoff="False"/>
+			<Item Namespace="GenICam" Name="USB3LinkRecoveryCount" Onoff="False"/>
+			<Item Namespace="GenICam" Name="LinkErrorCount" Onoff="False"/>
+			<Item Namespace="GenICam" Name="LinkRecoveryCount" Onoff="False"/>
+			<Item Namespace="Stream" Name="StreamFailedBufferCount" Onoff="False"/>	
+			<Item Namespace="Stream" Name="StreamBufferUnderrunCount" Onoff="False"/>
+			<Item Namespace="GenICam" Name="TransferQueueOverflowCount" Onoff="False"/>
+		</Category>
+	</StatusBarControls>
+</PGRControls>
+

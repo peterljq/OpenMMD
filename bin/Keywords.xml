@@ -1,0 +1,63 @@
+<Keywords>
+	<Keyword Language="English" Target="Gain">
+		<Word Language="SimplifiedChinese">增益</Word>
+		<Word Language="TraditionalChinese">增益</Word>
+		<Word Language="Japanese">ゲイン</Word>
+		<Word Language="German">Gewinn</Word>
+	</Keyword>
+	<Keyword Language="English" Target="Exposure Time">
+		<Word Language="SimplifiedChinese">曝光时间</Word>
+		<Word Language="TraditionalChinese">曝光時間</Word>
+		<Word Language="Japanese">露光時間</Word>
+		<Word Language="German">Belichtungszeit</Word>
+		<Word Language="IIDC">Shutter</Word>
+	</Keyword>
+	<Keyword Language="English" Target="Sequencer">
+		<Word Language="SimplifiedChinese">定序</Word>
+		<Word Language="TraditionalChinese">定序</Word>
+		<Word Language="Japanese">シーケンサー</Word>
+		<Word Language="German">Ablaufsteuerung</Word>
+		<Word Language="IIDC">HDR</Word>
+	</Keyword>
+	<Keyword Language="English" Target="Black Level">
+		<Word Language="SimplifiedChinese">亮度</Word>
+		<Word Language="TraditionalChinese">亮度</Word>
+		<Word Language="Japanese">明るさ</Word>
+		<Word Language="German">Helligkeit</Word>
+		<Word Language="IIDC">Brightness</Word>
+	</Keyword>
+	<Keyword Language="English" Target="Acquisition Frame Rate">
+		<Word Language="SimplifiedChinese">帧率</Word>
+		<Word Language="TraditionalChinese">幀率</Word>
+		<Word Language="Japanese">フレームレート</Word>
+		<Word Language="German">Bildrate</Word>
+		<Word Language="IIDC">FrameRate</Word>
+	</Keyword>
+	<Keyword Language="English" Target="GevSCPSPacketSize">
+		<Word Language="IIDC">Packet Size</Word>
+	</Keyword>
+	<Keyword Language="English" Target="GevSCPD">
+		<Word Language="IIDC">Packet Delay</Word>
+	</Keyword>
+	<Keyword Language="English" Target="Acquisition Control">
+		<Word Language="IIDC">Trigger Mode</Word>
+	</Keyword>
+	<Keyword Language="English" Target="Image Format Control">
+		<Word Language="IIDC">Format7</Word>
+		<Word Language="IIDC">Video Mode</Word>
+	</Keyword>
+	<Keyword Language="English" Target="Chunk Data">
+		<Word Language="IIDC">Embedded Image</Word>
+	</Keyword>
+	<Keyword Language="English" Target="Transfer Control">
+		<Word Language="IIDC">Frame Buffer</Word>
+	</Keyword>
+	<Keyword Language="English" Target="User Set">
+		<Word Language="IIDC">Memory Channel</Word>
+	</Keyword>
+	<Keyword Language="English" Target="Reverse">
+		<Word Language="IIDC">Mirror</Word>
+		<Word Language="IIDC">Flip</Word>
+	</Keyword>
+</Keywords>
+	
