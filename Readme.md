@@ -33,12 +33,12 @@ The projects implements multiple Deep Learning Models as a sequential chain. The
 ## Example Presentation
 ### I. Record a piece of real-person motion video
 <p align="center">
-    <img src="https://raw.githubusercontent.com/peterljq/OpenMMD/master/Readme%20Materials/Real-person%20Crop.gif", width="160">
+    <img src="https://github.com/peterljq/OpenMMD/blob/master/Readme%20Materials/Real-person%20Crop.gif?raw=true", width="160">
 </p>
 
 ### II. Extraction of 3D keypoints
 <p align="center">
-    <img src="https://raw.githubusercontent.com/peterljq/OpenMMD/master/Readme%20Materials/OpenMMD_smoothing.gif" width="240">
+    <img src="https://raw.githubusercontent.com/peterljq/OpenMMD/master/Readme%20Materials/OpenMMD_smoothing.gif" width="320">
 </p>
 
 ### III. Video Depth Prediction
@@ -54,8 +54,7 @@ The projects implements multiple Deep Learning Models as a sequential chain. The
 
 ## Installation and Uninstallation
 **Download the full pack**: 
-- Note that the full application is about 5GB. Thats is mainly because the large size parameters of the pre-trained deep learning models.
-- Download the whole pack contains the **pre-trained models with optimized parameters and corresponding compilable codes**. 
+- Note that the full application is about 5GB. Thats is mainly because the large size parameters of the pre-trained deep learning models. Download the whole pack contains the **pre-trained models with optimized parameters and corresponding compilable codes**. 
 
 - [Google Drive](https://drive.google.com/file/d/197CWR_aOAd4vNflhWlxWmRVsAmeG5S1F/view?usp=sharing)
 - [Baidu Netdisk （Temporarily Unavailable）](https://baidu.com)
@@ -63,7 +62,7 @@ The projects implements multiple Deep Learning Models as a sequential chain. The
 **Follow the instruction to begin your first animation**: 
 Most of the detailed instructions are contained in the xxx.bat files of each steps below. Please kindly refer to that.
 - Record a piece of video contains human motions. Satisfy all the prerequisite libraries stated below.
-- After downloading, firstly **activate tensorflow** environment in the terminal.
+- After downloading, firstly **activate tensorflow** environment in the terminal of anaconda.
 - Run OpenposeVideo.bat and follow the pop-out instructions.
 - Then proceed to the 3d-pose-baseline-vmd folder and run OpenposeTo3D.bat. Follow the pop-out instructions.
 - After that, proceed to the FCRN-DepthPrediction-vmd folder and run VideoToDepth.dat.
