@@ -20,18 +20,18 @@ The projects implements multiple Deep Learning Models as a sequential chain. The
     - **3D Single-person Key Points Detection (OpenPose):**
         - **Proposed by Gines Hidalgo, Zhe Cao, Tomas Simon, Shih-En Wei, Hanbyul Joo, and Yaser Sheikh at CVPR 2017**.
         - Recoded real-person video input and JSON files collections of motion key points as the output.
-    - **Strong Baseline for 3d Human Pose Estimation**: 
+    - **Strong Baseline for 3D Human Pose Estimation**: 
         - **Proposed by Julieta Martinez, Rayat Hossain, Javier Romero, James J. Little In ICCV, 2017**. An effective baseline for 3d human pose estimation.
         - Combining all the key points JSON files to a continuous sequence with strong baselines.
-    - **Video depth prediction**:
+    - **Video Depth Prediction**:
         - **Proposed by Iro Laina and Christian Rupprecht at the IEEE International Conference on 3D Vision 2016**. FCRN: Deeper Depth Prediction with Fully Convolutional Residual Networks.
         - Estimation of depth for objects, backgrounds and the moving person in the video (e.g. dancer).
-    - **Human Motion keypoints to VMD motion files for MMD build** 
+    - **Human Motion Key Points to VMD Motion Files for MMD Build** 
         - **Proposed by Denis Tome, Chris Russell and Lourdes Agapito at CVPR 2017**. Convolutional 3D Pose Estimation from a single image.
         - Edited by @miu200521358 to output VMD files so that the formatted result can be directly fed to MMD for generating animated dancing movies.
 - **Input**: videos of common formats (AVI, WAV, MOV) or images of common formats (PNG, JPG), 
 - **Output**: Animations or Posetures of 3D models (e.g. Miku Dancing)
-- **OS**: Windows (8, 10), MacOS
+- **OS**: Windows (8, 10), MacOS (2017 Released Version)
 
 ## Example Presentation
 ### I. Record a piece of real-person motion video
@@ -56,7 +56,7 @@ The projects implements multiple Deep Learning Models as a sequential chain. The
 
 
 ## Installation and User Guidelines
-**Download the full pack**: Note that the full application is about 5GB. Thats is mainly because the large size parameters of the pre-trained deep learning models. Download the whole pack contains the **pre-trained models with optimized parameters and corresponding compilable codes**. 
+**Download the full pack**: Note that the full application is about 5GB. That is mainly because the large-size parameters of the pre-trained deep learning models. Download the whole pack contains the **pre-trained models with optimized parameters and corresponding compilable codes**. 
 
 - [Google Drive](https://drive.google.com/file/d/197CWR_aOAd4vNflhWlxWmRVsAmeG5S1F/view?usp=sharing)
 - [Baidu Netdisk (Temporarily Unavailable)](https://baidu.com)
