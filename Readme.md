@@ -36,14 +36,14 @@ The projects implements multiple Deep Learning Models as a sequential chain. The
     <img src="https://github.com/peterljq/OpenMMD/blob/master/Readme%20Materials/Real-person%20Crop.gif?raw=true", width="160">
 </p>
 
-### II. Extraction of 3D keypoints
+### II. Extraction of 3D keypoints with Continuous Baselines
 <p align="center">
     <img src="https://raw.githubusercontent.com/peterljq/OpenMMD/master/Readme%20Materials/OpenMMD_smoothing.gif" width="320">
 </p>
 
 ### III. Video Depth Prediction
 <p align="center">
-    <img src="https://github.com/peterljq/OpenMMD/blob/master/Readme%20Materials/OpenMMD_depth.gif?raw=true" width="240">
+    <img src="https://github.com/peterljq/OpenMMD/blob/master/Readme%20Materials/OpenMMD_depth.gif?raw=true" width="280">
 </p>
 
 ### IV. Output VMD files and construct to MMD animations
