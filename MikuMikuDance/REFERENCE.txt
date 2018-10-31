@@ -1,0 +1,1530 @@
+
+MMEffect リファレンス 
+
+0.1.0.0 (2010/9/18) 初版
+0.2.0.0 (2010/12/12) MME Ver0.20
+　?OFFSCREENRENDERTARGETセマンティクス追加
+　?CONTROLOBJECTセマンティクスで取得できる情報の追加
+　?CONTROLOBJECTセマンティクスが参照するオブジェクトの描画順序の制約を緩和
+　?EDGECOLORセマンティクス追加
+　?VIEWPORTPIXELSIZEセマンティクスの記述ミスを修正
+　?一部日本語修正
+0.2.2.0 (2010/12/16) MME Ver0.22
+　?RENDERCOLORTARGETおよびOFFSCREENRENDERTARGETセマンティクスでの、Miplevelsの指定方法を変更
+0.2.3.0 (2010/12/20) MME Ver0.23
+　?CONTROLOBJECTセマンティクスの補足追記
+0.2.4.0 (2011/02/09) MME Ver0.24
+　?CONTROLOBJECTセマンティクスに指定できる特殊オブジェクト名に"(self)"を追加
+　?TEXTUREVALUEセマンティクスを追加
+0.2.6.0 (2010/02/21) MME Ver0.26
+　?Draw=Geometryコマンドについての記述を修正
+0.2.7.0 (2011/05/22) MME Ver0.27
+　?_INDEXセマンティクス追加
+　?VertexCountパラメータおよびSubsetCountパラメータを追加
+　?opaddパラメータの追加
+　?TEXTUREVALUEセマンティクスの補足に追記
+0.2.8.0 (2012/03/26) MME Ver0.28
+　?CONTROLOBJECTセマンティクスについての記述を一部修正
+0.3.0.0 (2012/09/19) MME Ver0.30
+　?OFFSCREENRENDERTARGETセマンティクスのDefaultEffectに指定可能な
+　　特殊なエフェクト名として"main_default"を追加
+0.3.3.0 (2013/02/13) MME Ver0.33
+　?テクスチャの材質モーフ用セマンティクス（ADDINGTEXTURE等）追加
+　?PMXモデルのサブテクスチャに対応（UseSphereMap, use_spheremap, use_subtexture参照）
+　?MATERIALTOONTEXTUREセマンティクス追加
+　?GROUNDSHADOWCOLORセマンティクス追加
+　?MME_MIPMAPマクロ追加
+
+
+○注意
+?このリファレンスでは、MMEffectが認識するセマンティクス＆アノテーションについて解説している。
+　エフェクトファイルそのもののリファレンスについては、以下を参照のこと。
+　
+　　エフェクトファイルフォーマット http://msdn.microsoft.com/ja-jp/library/bb173005(v=VS.85).aspx
+　　HLSLのリファレンス            http://msdn.microsoft.com/ja-jp/library/bb509638(v=VS.85).aspx
+
+?セマンティクス＆アノテーションの仕様の策定は、NVIDIAのSASを参考にした。
+　　http://developer.nvidia.com/object/using_sas.html
+　ただしこれは、FX Composer用のエフェクトファイルが動作することを保障するものではない。
+
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+
+１　テクニックとパス
+
+1.1　構成
+
+エフェクトファイルは、以下のような、テクニックとパスによる階層構造になっている。
+
+/**********************************/
+パラメータ宣言1
+パラメータ宣言2
+...
+
+technique テクニック1 {
+    pass パス1 {
+        VertexShader = …
+        PixelShader  = …
+    }
+    pass パス2 {
+        VertexShader = …
+        PixelShader  = …
+    }
+    …
+}
+
+technique テクニック2 {
+    pass パス1 {
+        VertexShader = …
+        PixelShader  = …
+    }
+    pass パス2 {
+        VertexShader = …
+        PixelShader  = …
+    }
+    …
+}
+/**********************************/
+
+テクニックは１つ以上のパスから構成される。
+１つのパスは1回のレンダリング処理に対応しており、
+テクニックが複数のパスから構成されている場合は、
+そのテクニックがマルチパスレンダリングを使用することを意味している。
+
+
+テクニックとパスには、アノテーションと呼ばれる設定値を記述することができる。
+アノテーションは、以下のように、テクニック名?パス名の後ろに、"<"と">"で囲むようにして記述する。
+なお、アノテーション名の大文字小文字の違いは無視される。
+
+/******************************************************/
+technique Tech1 < string Subset = "1-6,8"; > {
+    pass Pass1 < string Script = "Draw=Buffer;"; > {
+        ...
+    }
+    pass Pass2 {
+        ...
+    }
+}
+/******************************************************/
+
+また、テクニックとパスには、スクリプトと呼ばれる特殊なアノテーションを
+指定することができる。これについては、§３で説明する。
+
+
+1.2　テクニックのアノテーション
+
+テクニックのアノテーションには、
+そのテクニックをどの場面の描画に使用するかの条件を記述する。
+
+
+この条件には、以下のものを指定できる。
+
+?オブジェクトのサブセット番号（≒オブジェクトのマテリアルの番号）
+?描画対象（オブジェクト本体/影/輪郭/セルフシャドウ用Z値プロット）
+?描画フラグ（テクスチャ使用ON/OFF、スフィアマップ使用ON/OFF、トゥーンレンダリング使用ON/OFF）
+
+条件の照合は、エフェクトファイルに書かれている順に行われるため、
+複数のテクニックで使用条件が重なっている場合は、
+エフェクトファイル上で先に記述されているものが優先される。
+条件に合致するテクニックがエフェクトファイル上に存在しない場合、
+MMD標準のシェーダが使用される。
+
+
+○アノテーション
+
+?string Subset
+　　そのテクニックを適用するサブセットの番号を指定する。
+　　PMDモデルの場合、これはモデルの材質番号に対応する。
+　　
+　　アノテーション省略時には、全てのサブセットが適用対象となる。
+　　
+　　"0,3,5"のように、カンマ区切りで番号を列挙することで、複数の番号を指定できる。
+　　また、"6-10"などのように、番号をハイフンでつなぐことで、範囲指定ができる。
+　　"12-"のように、範囲の開始番号のみを指定した場合は、それ以降の全ての番号が対象となる。
+
+　　例： string Subset = "0-6,8";
+
+?string MMDPass
+　　そのテクニックを適用する描画対象を指定する。
+　　以下のうちいずれかを指定する。この区分は、MMDの描画手順に由来する。
+
+　　"object"    : オブジェクト本体（セルフシャドウOFF）
+　　"zplot"     : セルフシャドウ用Z値プロット
+　　"object_ss" : オブジェクト本体（セルフシャドウON）
+　　"shadow"    : 影（セルフシャドウではない単純な影）
+　　"edge"      : 輪郭（PMDモデルのみ）
+
+　　アノテーション省略時には、"object"を指定したとみなされる。
+
+　　例： string MMDPass = "object";
+
+?bool UseTexture
+　　テクスチャ使用の有無を指定する。
+　　そのテクニックが、テクスチャを使用するサブセットのみを対象とする場合には、trueを指定する。
+　　逆に、テクスチャを使用しないサブセットのみを対象とする場合には、falseを指定する。
+
+　　アノテーション省略時には、テクスチャの有無は無視される。
+
+　　例： bool UseTexture = true;
+
+?bool UseSphereMap
+　　スフィアマップ使用の有無を指定する。
+　　そのテクニックが、スフィアマップを使用するサブセットのみを対象とする場合には、trueを指定する。
+　　（PMXモデルにおいて、スフィアモードにサブテクスチャを指定した場合も含む）
+　　逆に、スフィアマップを使用しないサブセットのみを対象とする場合には、falseを指定する。
+
+　　アノテーション省略時には、スフィアマップの有無は無視される。
+
+　　例： bool UseSphereMap = false;
+
+?bool UseToon
+　　トゥーンレンダリング使用の有無を指定する。
+　　そのテクニックが、トゥーンレンダリングを使用するオブジェクト（＝PMDモデル）を対象とする場合には、trueを指定する。
+　　逆に、トゥーンレンダリングを使用しないオブジェクト（＝アクセサリ）を対象とする場合には、falseを指定する。
+
+　　アノテーション省略時には、トゥーンレンダリング使用の有無は無視される。
+
+　　例： bool UseToon = true;
+
+
+○使用例
+    
+    //セルフシャドウがONの場合、サブセットのNo.0～6とNo.8には、Tech1が適用され、
+    //サブセットのNo.7とNo.9～には、Tech2が適用される。
+    //セルフシャドウがOFFの場合、Tech3が適用される。
+
+    technique Tech1 <
+        string MMDPass = "object_ss"; 
+        string Subset = "0-6,8";
+    > {
+        ...
+    }
+
+    technique Tech2 <
+        string MMDPass = "object_ss"; 
+        string Subset = "7,9-";
+    > {
+        ...
+    }
+
+    technique Tech3 <
+        string MMDPass = "object"; 
+    > {
+        ...
+    }
+
+○補足
+　?妥当でないテクニックは除外される。
+　　http://msdn.microsoft.com/ja-jp/library/bb206324(v=VS.85).aspx
+　?MMDPass="object","object_ss"以外のテクニックでは、UseTexture,UseSphereMap,UseToonは正しく機能しない。
+
+
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+
+２　パラメータのセマンティクスとアノテーション
+
+以降では、MMEffect用のエフェクトファイルで使用できる、
+パラメータのセマンティクスとアノテーションについて説明する。
+
+パラメータの宣言をセマンティクスやアノテーションで修飾することで、
+レンダリングに必要な様々な情報を、そのパラメータを解して取得できる。
+
+
+パラメータのセマンティクスとアノテーションは、以下のように記述する。
+
+   型名 パラメータ名 : セマンティクス名 < 型名 アノテーション1 = 値; 型名 アノテーション2 = 値; ... > ;
+
+セマンティクスによっては、アノテーションを指定しないものもある。
+
+
+なお、セマンティクス名とアノテーション名の大文字小文字の違いは無視される。
+
+
+2.1 ジオメトリ変換
+参考：http://msdn.microsoft.com/ja-jp/library/bb206269(v=VS.85).aspx
+
+●WORLD
+●VIEW
+●PROJECTION
+●WORLDVIEW
+●VIEWPROJECTION
+●WORLDVIEWPROJECTION
+
+　頂点の座標変換に使用する変換行列。
+　
+　座標変換には、ワールド変換、ビュー変換、プロジェクション変換（射影変換）がある。
+　
+  6つのセマンティクスは、それぞれ、
+　　WORLD               : ワールド変換行列
+　　VIEW                : ビュー変換行列
+　　PROJECTION          : プロジェクション変換行列　
+　　WORLDVIEW           : ワールド変換行列×ビュー変換行列
+　　VIEWPROJECTION      : ビュー変換行列×プロジェクション変換行列
+　　WORLDVIEWPROJECTION : ワールド変換行列×ビュー変換行列×プロジェクション変換行列
+　を表す。
+　型はfloat4x4。
+　
+　"WORLDINVERSE"のように、セマンティクスの末尾に"INVERSE"を付加すると、各行列の逆行列が得られる。
+　また、"WORLDTRANSPOSE"のように、末尾に"TRANSPOSE"を付加すると、各行列の転置行列が得られる。
+　逆行列の転置行列を得るには、末尾に"INVERSETRANSPOSE"を付加する。
+
+
+　○アノテーション
+　?string Object (省略可能)
+　　　ビュー変換およびプロジェクション変換において、どこを視点とするかを指定する。
+　　　"Camera"または"Light"が指定できる。デフォルトは"Camera"である。
+
+　　　通常の、カメラを視点とした座標変換を行う場合には、"Camera" を指定する。
+　　　セルフシャドウのためのZ値プロット等、光源を視点とした座標変換を行う場合には、"Light"を指定する。
+
+  ○使用例
+    float4x4 WorldMatrix : WORLD ;
+    float4x4 WorldViewProjMatrix : WORLDVIEWPROJECTION ;
+    float4x4 LightViewMatrix : VIEW < string Object = "Light"; > ;
+    float4x4 WorldInvMatrix : WORLDINVERSE ;
+    float4x4 WorldViewProjTransMatrix : WORLDVIEWPROJECTIONTRANSPOSE ;
+
+　○補足
+　　?Objectアノテーションに"Light"を指定したときに得られる行列は、
+　　　MMDのセルフシャドウ処理に使用している行列と連動しているため、
+　　　[表示(V)]-[セルフシャドウ表示(P)]で、セルフシャドウ機能を完全にOFFにしてしまうと、
+　　　正しい値を参照できなくなる。
+
+
+2.2 ライトとマテリアル
+参考：http://msdn.microsoft.com/ja-jp/library/bb174694(v=VS.85).aspx
+
+●DIFFUSE
+●AMBIENT
+●EMISSIVE
+●SPECULAR
+●SPECULARPOWER
+●TOONCOLOR
+●EDGECOLOR
+●GROUNDSHADOWCOLOR
+
+　3Dオブジェクトのマテリアル(材質)の色値、またはライトの色値。
+
+　6つのセマンティクスは、それぞれ、
+　　DIFFUSE       　　: ディフューズ色（拡散光）
+　　AMBIENT       　　: アンビエント色（環境光）
+　　EMISSIVE      　　: エミッション色（放射光）
+　　SPECULAR      　　: スペキュラ色（鏡面光）
+　　SPECULARPOWER 　　: スペキュラの強度
+　　TOONCOLOR     　　: トゥーン色
+　　EDGECOLOR     　　: 輪郭色
+　　GROUNDSHADOWCOLOR : 地面影色
+　を表す。
+　
+　トゥーン色は、PMDモデルのトゥーンレンダリングにおける、影の色（具体的にはtoon??.bmpの左下隅の色）を表す。
+　
+　型は、"SPECULARPOWER"のみfloatで、それ以外はfloat3またはfloat4ある。
+　色は4つの成分（赤?緑?青?アルファ(透明度)）で構成される。型にfloat3を指定するとアルファ値が省略される。
+
+
+　○アノテーション
+　?string Object (必須)
+　　　ライト色と、オブジェクトのマテリアル色のどちらを取得するかを指定する。
+　　　"Light"または"Geometry"が指定できる。
+
+　　　オブジェクトのマテリアル色を取得するには、"Geometry"を指定する。
+　　　ライト色を取得するには、"Light"を指定する。
+　　　"SPECULARPOWER"と"EMISSIVE"および"TOONCOLOR"には、ライト色がないため、"Light"は指定できない。
+
+  ○使用例
+    float4 MaterialDiffuse  : DIFFUSE  < string Object = "Geometry"; >;
+    float3 MaterialAmbient  : AMBIENT  < string Object = "Geometry"; >;
+    float3 MaterialEmmisive : EMISSIVE < string Object = "Geometry"; >;
+    float3 MaterialSpecular : SPECULAR < string Object = "Geometry"; >;
+    float  SpecularPower    : SPECULARPOWER < string Object = "Geometry"; >;
+    float3 MaterialToon     : TOONCOLOR;
+    float3 EdgeColor        : EDGECOLOR;
+    float3 LightDiffuse     : DIFFUSE   < string Object = "Light"; >;
+    float3 LightAmbient     : AMBIENT   < string Object = "Light"; >;
+    float3 LightSpecular    : SPECULAR  < string Object = "Light"; >;
+    static float4 DiffuseColor  = MaterialDiffuse  * float4(LightDiffuse, 1.0f);
+    static float3 AmbientColor  = MaterialAmbient  * LightAmbient + MaterialEmmisive;
+    static float3 SpecularColor = MaterialSpecular * LightSpecular;
+	float4 GroundShadowColor : GROUNDSHADOWCOLOR;
+
+　○補足
+　　?輪郭色はMMDPass="edge"のTechniqueにおいてしか、正しく取得できない。
+　　?地面影色はMMDPass="shadow"のTechniqueにおいてしか、正しく取得できない。
+　　?その他の各色値は、MMDPass="zplot"またはMMDPass="edge"のTechniqueにおいては、正しく取得できない。
+
+
+●POSITION
+●DIRECTION
+　
+　ライトまたはカメラの、ワールド空間内における位置および向き。
+　型は、float3またはfloat4である。
+
+
+　○アノテーション
+　?string Object (必須)
+　　　カメラおよびライトのどちらの座標を取得するかを指定する。
+　　　"Camera"または"Light"が指定できる。
+
+  ○使用例
+    float3 LightDirection : DIRECTION < string Object = "Light"; >;
+    float3 CameraPosition : POSITION  < string Object = "Camera"; >;
+
+　○補足
+　　?MMDのライトは、ディレクショナルライトであるため、
+　　　ライトの位置座標は、ライトの向きと逆方向の無限遠点になる。
+
+
+●MATERIALTEXTURE
+　
+　マテリアルに設定されているテクスチャ。
+
+　○アノテーション
+　　なし
+
+  ○使用例
+    texture ObjectTexture : MATERIALTEXTURE;
+    
+    sampler ObjTexSampler = sampler_state
+    {
+        texture = <ObjectTexture>;
+        MINFILTER = LINEAR;
+        MAGFILTER = LINEAR;
+        MIPFILTER = LINEAR;
+        ADDRESSU  = WRAP;
+        ADDRESSV  = WRAP;
+    };
+    // tex2D(ObjTexSampler, float2(x,y)) で内容を参照できる
+
+　○補足
+　　?各色値は、MMDPass="zplot"またはMMDPass="edge"のTechniqueにおいては、正しく取得できない。
+
+●MATERIALSPHEREMAP
+　
+　マテリアルに設定されている、スフィアマップテクスチャ。
+
+　○アノテーション
+　　なし
+
+  ○使用例
+    texture ObjectSphereMap : MATERIALSPHEREMAP;
+    
+    sampler ObjSphSampler = sampler_state
+    {
+        texture = <ObjectSphereMap>;
+        MINFILTER = LINEAR;
+        MAGFILTER = LINEAR;
+        MIPFILTER = LINEAR;
+        ADDRESSU  = WRAP;
+        ADDRESSV  = WRAP;
+    };
+    // tex2D(ObjSphSampler, float2(x,y)) で内容を参照できる
+
+　○補足
+　　?各色値は、MMDPass="zplot"またはMMDPass="edge"のTechniqueにおいては、正しく取得できない。
+
+●MATERIALTOONTEXTURE
+　
+　マテリアルに設定されている、トゥーンマップテクスチャ。
+
+　○アノテーション
+　　なし
+
+  ○使用例
+    texture ObjectToonTexture : MATERIALTOONTEXTURE;
+    
+    sampler ObjToonSampler = sampler_state
+    {
+        texture = <ObjectSphereMap>;
+        MINFILTER = LINEAR;
+        MAGFILTER = LINEAR;
+        MIPFILTER = NONE;
+        ADDRESSU  = CLAMP;
+        ADDRESSV  = CLAMP;
+    };
+    // tex2D(ObjToonSampler, float2(x,y)) で内容を参照できる
+
+　○補足
+　　?各色値は、MMDPass="zplot"またはMMDPass="edge"のTechniqueにおいては、正しく取得できない。
+　　?また、アクセサリの場合（UseToon=falseの場合）は、正しく取得できない。
+　　?PMDモデルにおいて、トゥーンを使用しないマテリアルの場合は、全面白色のテクスチャとなる。
+
+●ADDINGTEXTURE
+●MULTIPLYINGTEXTURE
+●ADDINGSPHERETEXTURE
+●MULTIPLYINGSPHERETEXTURE
+　
+　PMX材質モーフのための、テクスチャおよびスフィアマップのテクスチャに対しての、
+　加算値および乗算値。
+
+　○アノテーション
+　　なし
+
+  ○使用例
+    float4   TextureAddValue   : ADDINGTEXTURE;
+    float4   TextureMulValue   : MULTIPLYINGTEXTURE;
+    float4   SphereAddValue    : ADDINGSPHERETEXTURE;
+    float4   SphereMulValue    : MULTIPLYINGSPHERETEXTURE;
+
+　○補足
+　　?各値は、MMDPass="object_ss"の場合でしか、正しく取得できない。
+　　?また、アクセサリの場合（UseToon=falseの場合）は、加算値は全て0、乗算値は全て1になる。
+
+
+2.3 スクリーン情報
+
+●VIEWPORTPIXELSIZE
+
+　レンダリングターゲットのスクリーンのサイズ。
+　型はfloat2。単位はピクセル。
+　
+　※この値は、MMDのスクリーンもしくはオフスクリーンレンダリングターゲットのサイズを指す。
+　　Scriptsの"RenderColorTarget"コマンドで、レンダリングターゲットが変更しても、
+　　この値は変化しない。
+　
+　○アノテーション
+　　なし
+
+  ○使用例
+    float2 ScreenSize : VIEWPORTPIXELSIZE;
+
+　○補足
+　　?内部的には、Viewportの.Widthと.Heightの値を参照している。
+
+
+2.4 時間
+
+●TIME
+●ELAPSEDTIME
+
+　時間情報。
+　型はfloat。単位は秒。
+　
+　"TIME"は、0フレーム目からの再生時間を表す。
+　例えば、0フレーム目では、0.0（秒）となり、45フレーム目では1.5（秒）となる。
+　
+　"ELAPSEDTIME"は、前回の描画からの経過時間を表す。
+　例えば、60fpsでAVI出力時には、"ELAPSEDTIME"の値は、1/60 で一定になる。
+　
+　○アノテーション
+　?bool SyncInEditMode  (省略可能)
+　　　MMDが編集モードである場合でも、フレームと連動するかを指定する。
+　　　trueまたはfalseを指定する。デフォルトはfalse。
+　　　
+　　　MMDが編集モードのときには、フレームの再生は停止しているため、
+　　　TIMEの値が常にフレーム時間と連動していると、
+　　　編集モード中は、この値を使用しているアニメーションも停止することになる。
+　　　
+　　　このアノテーションにfalseが指定されていると、
+　　　編集モード中、TIMEおよびELAPSEDTIMEの値には、フレーム時間ではなくシステム時間が使用される。
+　　　これにより、編集モード中でもアニメーションが停止しなくなる。
+
+  ○使用例
+    float ftime : TIME <bool SyncInEditMode=true;>;
+    float elapsed_time : ELAPSEDTIME;
+    static float fps = 1.0 / elapsed_time;
+
+　○補足
+　　?SyncInEditMode=trueの場合、ELAPSEDTIMEの値は、MMD上でのフレーム移動操作により、0やマイナスになりうる。
+
+
+2.5 マウス
+
+●MOUSEPOSITION
+
+　マウスの現在位置。
+　型はfloat2。
+
+　MMDの描画領域の中心を(0,0)とし、左下隅が(-1,-1)、右上隅が(1,1)になる。
+　このxy座標の取り方は、プロジェクション変換した後の、頂点座標と同じである。
+
+　○アノテーション
+　　なし
+
+  ○使用例
+    float2 pos : MOUSEPOSITION;
+
+
+●LEFTMOUSEDOWN
+●MIDDLEMOUSEDOWN
+●RIGHTMOUSEDOWN
+
+　マウスボタンに関する情報。
+　型はfloat4。
+　
+　取得できる値は、以下の4成分からなる。
+　?最後にボタンが押されたときのマウスの座標（xとy）
+　?現在ボタンが押されているか （0 or 1）
+　?最後にボタンが押された時点のTIME値(秒)
+　
+　なお、マウスの座標の取り方は、MOUSEPOSITIONと同じである。
+
+　○アノテーション
+　　なし
+
+  ○使用例
+    float4 mouse_down : LEFTMOUSEDOWN;
+    static float2 pos = mouse_down.xy;
+    static bool is_pressed = (mouse_down.z != 0);
+
+
+2.6 コントロールオブジェクト
+
+●CONTROLOBJECT
+
+　指定したオブジェクトの、座標やワールド変換行列を取得する。
+　主に、シェーダに必要なパラメータをMMD上から制御する場合に使用する。
+　
+　型はbool, float, float3, float4またはfloat4x4。
+　
+　使用する型によって、取得できる情報が異なる。
+　
+　?bool
+　　　指定したオブジェクトが表示されているか否か
+　?float
+　　　指定したオブジェクトのスケーリング値
+　?float3, float4
+　　　指定したオブジェクトの座標（オフセット）
+　?float4x4
+　　　指定したオブジェクトのワールド変換行列
+
+　また、itemアノテーションに特殊な文字列を指定することにより、
+　これら以外の値も取得できる。
+
+　○アノテーション
+　?string name  (必須)
+　　　オブジェクトのファイル名を指定する（フォルダパスは含めない）。
+　　　
+　　　特殊なファイル名"(self)"を指定すると、
+　　　そのエフェクトが割り当てられたオブジェクト自身を対象にできる。
+　　　
+　　　また、特殊なファイル名"(OffscreenOwner)"を指定すると、
+　　　オフスクリーンのオーナーのオブジェクトを対象にできる（オフスクリーンレンダリング中の場合のみ）。
+　　　ここで、オフスクリーンのオーナーとは、OFFSCREENRENDERTARGETが宣言されているエフェクトが
+　　　割り当てられたオブジェクトを指す
+　　　
+　?string item  (省略可能)
+　　　オブジェクトの特殊な値を取得したい場合に指定する。
+　　　
+　　　以下のうちいずれかを指定する。
+　　　　ボーン名 : PMDモデルの指定ボーンの座標またはワールド変換行列を取得する。
+　　　　　　　　 　型はfloat3,float4,float4x4のうちいずれか。
+　　　　表情名　 : PMDモデルの指定した表情の値を取得する。型はfloat。
+　　　　
+　　　　"X"      : アクセサリの位置X(アクセサリパネルのX)。型はfloat。
+　　　　"Y"      : アクセサリの位置Y(アクセサリパネルのY)。型はfloat。
+　　　　"Z"      : アクセサリの位置Z(アクセサリパネルのZ)。型はfloat。
+　　　　"XYZ"    : アクセサリの位置(アクセサリパネルのX,Y,Z)。型はfloat3。
+　　　　"Rx"     : アクセサリの回転X(アクセサリパネルのRx)。型はfloat。(※１）
+　　　　"Ry"     : アクセサリの回転Y(アクセサリパネルのRy)。型はfloat。
+　　　　"Rz"     : アクセサリの回転Z(アクセサリパネルのRz)。型はfloat。
+　　　　"Rxyz"   : アクセサリの回転(アクセサリパネルのRx,Ry,Rz)。型はfloat3。
+　　　　"Si"     : アクセサリのサイズ(アクセサリパネルのSi)。型はfloat。（※２）
+　　　　"Tr"     : アクセサリの透明度(アクセサリパネルのSi)。型はfloat。
+　　　　　
+　　　　　※１　得られる値は、パネル上の値をラジアンで表したものである。
+　　　　　※２　得られる値は、パネル上の値を10倍したものである。
+　　　　　
+  ○使用例
+    //"stage01.x"が表示されているか否かを取得
+    bool flag : CONTROLOBJECT < string name = "stage01.x"; >;
+    
+    //"negi.x"のスケーリング値を取得
+    float scaling : CONTROLOBJECT < string name = "negi.x"; >;
+
+    //"negi.x"の回転Xを取得
+    float rot_x : CONTROLOBJECT < string name = "negi.x"; string item = "Rx"; >;
+
+    //"negi.x"の回転Xを度数単位で取得
+    float rot_x_rad : CONTROLOBJECT < string name = "negi.x"; string item = "Rx"; >;
+    static float rot_x = rot_x_rad * 180 / 3.14159265;
+
+    //"弱音ハク.pmd"のボーン「ポニテＩＫ」の座標取得
+    float3 pos : CONTROLOBJECT < string name = "弱音ハク.pmd"; string item = "ポニテＩＫ"; >;
+
+    //"弱音ハク.pmd"の表情「まばたき」の値取得
+    float morph : CONTROLOBJECT < string name = "弱音ハク.pmd"; string item = "まばたき"; >;
+
+　○補足
+　　?PMDモデルのワールド変換行列は単位行列で変化しないため、
+　　　通常は、Xファイル（アクセサリ）に対して使用する。
+　　?アクセサリのスケーリング値は、MMD上でアクセサリのSizeに指定した値を10倍した値になる。
+　　　（内部的には、length(world_matrix._11_12_13) で得られる値を使用している）
+　　?指定したファイル名のオブジェクトが存在しない場合、以下の値が設定される。
+　　　　Xファイルの場合：
+　　　　　スケーリング値　：10
+　　　　　オフセット値　　：(0,0,0,1)
+　　　　　ワールド変換行列：スケーリング行列（xyz各10倍）
+　　　　　特殊item値　　　：0
+　　　　PMDファイルの場合：
+　　　　　スケーリング値　：1
+　　　　　オフセット値　　：(0,0,0,1)
+　　　　　ワールド変換行列：単位行列
+　　　　　ボーンの座標　　：(0,0,0,1)
+　　　　　ボーンの変換行列：単位行列
+　　　　　表情値　　　　　：0
+
+　　?MME ver0.20より、参照先のオブジェクトが参照元のオブジェクトよりも後に描画されていても、
+　　　値を取得できるようになった。
+　　　
+　　?指定した名前を持つオブジェクトが複数存在する場合、以下の優先順位で選択される。
+　　　　(1) 参照元のオブジェクトよりも描画順序が先で、かつ最も描画順序が近いもの。
+　　　　(2) 描画順序が最後のもの
+
+　　?ダミーボーン.pmdなどのように、頂点を一つも持たないオブジェクトについては、
+　　　参照先に指定しても座標を取得できない。
+
+
+2.7 テクスチャ関連
+
+●通常テクスチャ
+
+　テクスチャを生成する。
+
+　型はtexture, texture2D, texture3D, textureCUBEのうちいずれか。
+　RENDERCOLORTARGET, RENDERDEPTHSTENCILTARGET, ANIMATEDTEXTURE 以外のセマンティクスは指定しても無視される。
+　
+　生成したテクスチャの内容は、サンプラを設定した上で、tex2D(s, t)関数などを呼び出すことで参照できる。
+
+
+　○アノテーション
+　?string ResourceType
+　　　テクスチャの種類を指定する。"2D", "3D", "CUBE"のうちいずれかを指定する。
+　　　型と矛盾した値は指定できない。
+
+　　　型が"texture"であり、かつ"2D"以外のテクスチャを生成する場合には、
+　　　かならずこのアノテーションを指定しなければならない。それ以外では省略可能である。
+
+　?string ResourceName
+　　　テクスチャの元になる画像ファイルを指定する。
+　　　サポートしているファイルフォーマットは、bmp、.dds、.dib、.jpg、.png、および .tga である。
+　　　相対パスでファイル名を指定した場合、エフェクトファイルが格納されているフォルダが基準となる。
+
+　?int Width
+　?int Height
+　?int Depth
+　　　テクスチャの幅、高さ、深さをピクセル単位で指定する。
+　　　深さを指定するのはボリュームテクスチャの場合のみである。
+　　　
+　　　Dimensions, ViewportRatio とは同時に指定できない。
+　　　
+　　　(Width,Height,Depth), Dimensions, ViewportRatioのいずれも指定されていない場合の、
+　　　デフォルト値は、64ピクセルである。
+　　　また、ResourceNameが指定されているならば、画像ファイルからサイズが自動的に取得される。
+　　　
+　?int2(or int3) Dimensions
+　　　テクスチャの幅、高さ、深さをピクセル単位で指定する。
+　　　深さを指定するのはボリュームテクスチャの場合のみである。
+　　　
+　　　ViewportRatio, Width, Height, Depthとは同時に指定できない。
+　　　
+　?float2 ViewportRatio
+　　　テクスチャの幅、高さを、レンダリングターゲットのスクリーンのサイズとの比で指定する。
+　　　スクリーンと同じサイズのテクスチャを生成するには、"float2 ViewportRatio = {1.0, 1.0};" と指定する。
+　　　スクリーンの縦横2倍のサイズのテクスチャを生成するには、"float2 ViewportRatio = {2.0, 2.0};" と指定する。
+      
+　　　Dimensions, Width, Height, Depthとは同時に指定できない。
+　　　
+　?string Format
+　　　テクスチャのフォーマットを指定する。
+　　　
+　　　省略した場合、"A8R8G8B8"が使用される。
+　　　ResourceNameが指定されているならば、画像ファイルからフォーマットが取得され、
+　　　このアノテーションの設定は無視される。
+　　　
+　　　指定可能なフォーマットは、D3DFORMAT（http://msdn.microsoft.com/ja-jp/library/bb172558(v=VS.85).aspx）
+　　　を参照。
+　　　
+　　　"A8R8G8B8"、"FMT_A8R8G8B8"、"D3DFMT_A8R8G8B8"のいずれの書式でも指定できる。
+
+　?int Miplevels
+　　　ミップマップを指定したレベルで生成する。
+　　　省略するか0を指定した場合、完全なミップマップ チェーンが作成される。
+　　　1を指定すると、ミップマップは生成されない。
+      
+　?int Levels
+　　　Miplevelsの別名である。
+
+  ○使用例
+    
+    texture negi_tex < string ResourceName = "negi.bmp"; >;
+    sampler TexSampler = sampler_state {
+        texture = <negi_tex>;
+    };
+    
+    texture2D map_tex <
+        string ResourceName = "map.png";
+        int Miplevels = 1;
+        int Width = 64;
+        int Height = 64;
+    >;
+
+
+●RENDERCOLORTARGET
+
+　レンダリングターゲットに指定可能なサーフェイスを生成する。
+　このセマンティクスを指定して生成したテクスチャは、スクリプトのRenderColorTargetに
+　指定することができる。
+　レンダリング後は、通常のテクスチャと同様に、tex2D()関数で内容を参照できる。
+
+　型はtexture, texture2Dのうちいずれか。
+　
+　○アノテーション
+
+　?int Width, int　Height, int Depth
+　?int2 Dimensions
+　?float2 ViewportRatio
+　　　"●通常テクスチャ"を参照。
+　　　省略した場合、"float2 ViewportRatio = {1.0, 1.0};" という設定が使用される。
+
+　?string Format
+　　　"●通常テクスチャ"を参照。
+　　　省略した場合、"A8R8G8B8"が使用される。
+
+　?int Miplevels
+　?int Levels
+　　　"●通常テクスチャ"を参照。
+　　　1または0が指定できる。
+　　　0を指定した場合、完全なミップマップ チェーンが作成される。
+　　　1を指定すると、ミップマップは生成されない（デフォルト）。
+
+  ○使用例
+    
+    texture2D ScnMap : RENDERCOLORTARGET <
+        float2 ViewPortRatio = {1.0,1.0};
+        int MipLevels = 1;
+        string Format = "A8R8G8B8" ;
+    >;
+    sampler2D ScnSamp = sampler_state {
+        texture = <ScnMap>;
+    };
+
+    technique Tech <
+        string Script = "RenderColorTarget0=ScnMap;
+        ...
+
+
+●RENDERDEPTHSTENCILTARGET
+
+　深度ステンシルサーフェイス（いわゆるZバッファ）を生成する。
+　このセマンティクスを指定して生成したテクスチャは、スクリプトのRenderDepthStencilTargetに
+　指定することができる。
+
+　RENDERCOLORTARGETで生成したテクスチャとは違い、このセマンティクスで生成したテクスチャは、
+　レンダリング後も、内容を参照することはできない。
+
+　型はtexture, texture2Dのうちいずれか。
+
+　○アノテーション
+
+　?int Width, int　Height, int Depth
+　?int2(or int3) Dimensions
+　?float2 ViewportRatio
+　　　"●通常テクスチャ"を参照。
+　　　省略した場合、"float2 ViewportRatio = {1.0, 1.0};" という設定が使用される。
+
+　?string Format
+　　　"●通常テクスチャ"を参照。
+　　　省略した場合、"D24S8"が使用される。
+
+  ○使用例
+    
+    texture2D DepthBuffer : RENDERDEPTHSTENCILTARGET <
+        float2 ViewPortRatio = {2.0,2.0};
+        string Format = "D24S8";
+    >;
+
+    technique Tech <
+        string Script = "RenderDepthStencilTarget=DepthBuffer;
+        ...
+
+
+●ANIMATEDTEXTURE
+　
+　アニメーションテクスチャを生成する。
+　
+　型はtexture, texture2Dのうちいずれか。
+　
+　デフォルトでは、フレーム時間に連動して自動的にアニメーションするほか、
+　コントロールオブジェクトなどの、別のパラメータに連動してアニメーションさせることもできる。
+
+　○アノテーション
+
+　?string ResourceName (必須)
+　　　テクスチャの元になる、アニメーション画像ファイルを指定する。
+　　　サポートしているファイルフォーマットは、.gif（アニメGIF) および .png（APNG）である。
+
+　?float Offset (省略可能)
+　　　アニメーションの開始時間をずらす。（単位：秒）
+　　　例えば、2.5を指定すると、アニメーション開始を2.5秒遅らせることができる。
+　　　デフォルト値は0.0。
+
+　?float Speed (省略可能)
+　　　アニメーションの再生スピードを指定する。
+　　　例えば、2.0を指定すると、アニメーションの速度が2倍になる。
+　　　デフォルト値は1.0。
+
+　?string SeekVariable (省略可能)
+　　　アニメーションのシーク制御を、フレーム時間以外の方法で行う場合に指定する。
+　　　パラメータ名を指定すると、そのパラメータの値の変化に連動して、アニメーションが行われる。
+
+　　　デフォルトでは、フレーム時間(TIME<SyncInEditMode=true>)に連動してアニメーションする。
+
+  ○使用例
+    
+    // オブジェクトseek.xのSizeの変化に連動してアニメーションする
+    
+    float atime: ControlObject < string Name = "seek.x"; >;
+    
+    texture AnimeTex : ANIMATEDTEXTURE <
+        string ResourceName = "anime.png";
+        string SeekVariable="atime";
+    >;
+
+　○補足
+　　?アニメーションが要求するfpsを、MMDの描画のfpsが下回った場合、コマ落ちが発生する。
+　　?APNGについては、GByte単位の巨大なアニメーションファイルも（一応）再生可能。
+
+
+●OFFSCREENRENDERTARGET
+　
+　オフスクリーンレンダリングターゲット生成する。
+　
+　型はtexture, texture2Dのうちいずれか。
+　
+　オフスクリーンレンダリングターゲットを生成すると、
+　自動的に、指定した条件で全オブジェクトの描画が、このレンダリングターゲットに対して行われるようになる。
+　
+　レンダリング結果は、通常のテクスチャと同様にtex2D()関数で参照できる。
+
+　○アノテーション
+
+　?int Width, int　Height, int Depth
+　?int2 Dimensions
+　?float2 ViewportRatio
+　　　"●通常テクスチャ"を参照。
+　　　省略した場合、"float2 ViewportRatio = {1.0, 1.0};" という設定が使用される。
+
+　?string Format
+　　　"●通常テクスチャ"を参照。
+　　　省略した場合、"A8R8G8B8"が使用される。
+
+　?int Miplevels
+　?int Levels
+　　　"●通常テクスチャ"を参照。
+　　　1または0が指定できる。
+　　　0を指定した場合、完全なミップマップ チェーンが作成される。
+　　　1を指定すると、ミップマップは生成されない（デフォルト）。
+
+　?float4 ClearColor
+　　　レンダリングターゲットをクリアする色を設定する。
+　　　ここで指定した色で、レンダリングターゲットは自動的にクリアされる。
+　
+　?float ClearDepth
+　　　深度ステンシルサーフェイスをクリアするZ値を設定する。
+　　　ここで指定したZ値で、深度ステンシルサーフェイスは自動的にクリアされる。
+　
+　?bool AntiAlias
+　　　レンダリングにアンチエイリアスを使用する。デフォルトはfalse。
+　　　※アンチエイリアスが有効の場合、ビデオメモリは多く消費されるため、
+　　　　テクスチャのサイズには注意すること
+　
+　?string Description
+　　　オフスクリーンレンダリングターゲットの説明文を指定する。
+　　　ここで指定した文字列が、エフェクト割当のGUIダイアログ上で表示される。
+　
+　?string DefaultEffect
+　　　オフスクリーンレンダリングで使用するエフェクトファイルの割り当て方法を指定する。
+　　　１つの割り当ては、以下の書式で記述する。
+　　　
+　　　　　"(オブジェクトファイル名)=(エフェクトファイル名);"
+　　　
+　　　オブジェクト毎に使用するエフェクトファイルを切り替えるには、この割り当てを複数回記述する。
+　　　複数回記述した場合、記述した順でオブジェクトファイル名が比較され、最初にマッチしたものが使用される。
+　　　
+　　　　例： string DefaultEffect = "self=hide; Mirror*.x=hide; *=MirrorObject.fx;";
+　　　
+　　　オブジェクトファイル名には"*"と"?"によるワイルドカードが指定できる。
+　　　特殊なオブジェクトファイル名として"self"が指定でき、これは、
+　　　このOFFSCREENRENDERTARGETを持つエフェクトが割り当てられたオブジェクト自身を表す。
+　　　
+　　　エフェクトファイル名に相対パスでファイル名を指定した場合、
+　　　参照元のエフェクトファイルが格納されているフォルダが基準となる。
+　　　
+　　　また、特殊なエフェクトファイル名として"none"と"hide"が指定でき、
+　　　これは、「エフェクトなし」と「非表示」を表す。
+　　　また、"main_default"を指定すると、メインスクリーンでのデフォルト動作と同様な、
+　　　オブジェクトファイルパスに基づくfxファイルやemdファイルの自動割当が行われる。
+　　　
+  ○使用例
+    
+    texture MirrorRT: OFFSCREENRENDERTARGET <
+        string Description = "OffScreen RenderTarget for Mirror.fx";
+        int Width = 256;
+        int Height = 256;
+        float4 ClearColor = { 1, 1, 1, 1 };
+        float ClearDepth = 1.0;
+        bool AntiAlias = true;
+        string DefaultEffect = 
+            "self = hide;"
+            "Mirror*.x = hide;"
+            "*=MirrorObject.fx;";
+    >;
+
+●TEXTUREVALUE
+
+　指定したテクスチャの、テクセル情報を取得して配列に格納する。
+　これを使用すると、VTF(Vertex Texture Fetching)に対応しない環境でも、
+　頂点シェーダからテクスチャの値を参照できる（※制限あり。補足参照）
+　
+　型はfloat4の2次元配列（[縦幅][横幅]）、もしくは1次元配列。
+　
+　○アノテーション
+　?string TextureName  (必須)
+　　　テクスチャのパラメータ名を指定する。
+　　　
+  ○使用例
+    float4 ParticleBaseArray[TEX_HEIGHT][TEX_WIDTH] : TEXTUREVALUE <
+        string TextureName = "ParticleBaseTex";
+    >;
+    float4 ParticleBaseArray2[TEX_HEIGHT] : TEXTUREVALUE <
+        string TextureName = "ParticleBaseTex2";
+    >;
+
+    float4 color1 = ParticleBaseArray[v][u];
+    float3 color2 = ParticleBaseArray2[idx].rgb;
+   
+　○補足
+　　?定数レジスタで値を渡すため、参照できるテクセル数は200程度が限度。
+　　?配列のサイズがテクスチャのサイズと一致していない場合、正しく値が取得できる保証は無い。
+　　　一部の環境では、2の累乗のサイズのテクスチャしか作成できず、
+　　　それ以外のサイズを指定しても、自動的にサイズが拡張されて作成されることがあるので注意。
+　　?テクスチャからの値の取得は、フレームの開始時に行われます。
+　　　そのため、途中で対象のテクスチャを更新しても、次のフレームになるまで値は更新されません。
+
+2.8 エフェクトファイル
+
+●STANDARDSGLOBAL
+　
+　SAS（Standard Annotations and Semantics）のバージョンを指定する。
+　また、エフェクトファイル全体に関するアノテーションを記述するためにも用いられる。
+　
+　パラメータ名は "Script"、型は float、値としてバージョン番号の 0.8 を指定すること。
+　
+　
+　○アノテーション
+
+　?string ScriptOutput (省略可能)
+　　　"color"以外の値は指定できない。デフォルト値もこの値である。
+　　　
+　?string ScriptClass (省略可能)
+　　　そのエフェクトファイルの目的（何を描画するエフェクトか）を指定する。
+　　　
+　　　以下のうちいずれかを指定する。
+　　　
+　　　　"object"        : オブジェクトを描画する。（デフォルト）
+　　　　"scene"         : スクリーンバッファを描画する。
+　　　　"sceneorobject" : 上記の両方。
+　　　
+　　　基本的には、通常のオブジェクト描画用のエフェクトでは、"object"を指定し、
+　　　プリエフェクト、ポストエフェクトでは、"scene"を指定する。
+　　　
+　　　"object"を指定した場合、パスのスクリプトで Draw=Buffer を実行してはならない。
+　　　また、"scene"を指定した場合、 Draw=Geometry を実行してはならない。
+　　　"sceneorobject"を指定した場合は、両方を実行できる。
+　　　
+　?string ScriptOrder (省略可能)
+　　　そのエフェクトファイルの実行タイミングを指定する。
+　　　
+　　　以下のうちいずれかを指定する。
+　　　
+　　　　"standard"    : オブジェクトを描画する。（デフォルト）
+　　　　"preprocess"  : オブジェクトの描画よりも先に描画する。プリエフェクト用。
+　　　　"postprocess" : オブジェクトの描画の後で描画する。ポストエフェクト用。
+　　　
+　　　※正確には、preprocessのさらに前に、postprocessの前処理（テクニックのスクリプトの先頭から
+　　　　"ScriptExternal=Colorまで）が実行される。
+　　　
+　?string Script (省略可能)
+　　　使用するテクニックの検索順序を指定する。
+　　　通常は、エフェクトファイルに記述されている順で、使用可能なテクニックが検索される(1.2)が、
+　　　このアノテーションを用いると、その検索順序を明示的に指定できる。
+　　　
+　　　以下の書式で指定する。
+　　　   "Technique=Technique?テクニック名1:テクニック名2:～;"
+　　　
+　　　　例：string Script = "Technique=Technique?SimplePS:TexturedPS:SimpleQuadraticPS:TexturedQuadraticPS;";
+　　　
+　　　なお、使用するテクニックが１つの場合には、以下のようにも指定できる。
+　　　  string Script = "Technique=MainTech;";
+
+
+  ○使用例
+    
+　　//通常エフェクトの場合
+    float Script : STANDARDSGLOBAL <
+        string ScriptOutput = "color";
+        string ScriptClass = "object";
+        string ScriptOrder = "standard";
+    > = 0.8;
+
+　　//ポストエフェクトの場合
+    float Script : STANDARDSGLOBAL <
+        string ScriptOutput = "color";
+        string ScriptClass = "scene";
+        string ScriptOrder = "postprocess";
+    > = 0.8;
+
+
+2.9 特殊パラメータ
+
+以下の名前のパラメータは、セマンティクス無しで自動的に値が設定される。
+
+●parthf (bool型)
+　セルフシャドウフラグ。
+　セルフシャドウのmode1/mode2に対応（falseでmode1）。
+
+●spadd (bool型)
+　スフィアマップ加算合成フラグ（trueで加算合成）。
+
+●transp (bool型)
+　半透明フラグ（trueで半透明化）。
+　[表示(V)]-[半透明化]に対応。
+
+●use_texture (bool型)
+　テクスチャ使用フラグ。
+　描画中のマテリアルがテクスチャを使用する場合にtrue。
+
+●use_spheremap (bool型)
+　スフィアマップ使用フラグ。
+　描画中のマテリアルがスフィアマップを使用する場合にtrue。
+　なお、PMXモデルのサブテクスチャを使用する場合もtrueとなる。
+
+●use_subtexture (bool型)
+　サブテクスチャ使用フラグ。
+　PMXモデルのサブテクスチャを使用する場合にtrue。
+
+●use_toon (bool型)
+　トゥーンレンダリング使用フラグ。
+　PMDモデルの場合にtrue。
+
+●opadd (bool型)
+　加算合成フラグ。
+　オブジェクトの描画が加算合成モードに設定されている場合にtrue。
+
+●VertexCount (int型)
+　オブジェクトの頂点数。
+
+●SubsetCount (int型)
+　オブジェクトのサブセット数。
+
+○使用例
+  bool parthf;
+  bool use_texture;
+  bool use_toon;
+  int VertexCount;
+
+○補足
+　?MMDPass="object","object_ss"以外の場合、これらのパラメータに正しい値が設定される保証はない。
+
+
+2.9 頂点シェーダセマンティクス
+
+●_INDEX
+　
+　頂点シェーダにおいて、頂点のインデックス値を取得するためのセマンティクス。
+　頂点シェーダの入力パラメータで使用できる。型はint。
+　
+  ○使用例
+    
+    VS_OUTPUT Basic_VS(float4 Pos : POSITION, int index: _INDEX) {
+        VS_OUTPUT Out;
+        Out.Pos = mul( Pos, WorldViewProjMatrix );
+
+        float f = (float)index/VertexCount;
+        Out.Color = float4(f,f,f,1);
+        
+        return Out;
+    }
+
+　○補足
+　　?頂点シェーダに渡す過程で一旦float型に変換しているため、
+　　　インデックス値が 2^24=16777216 を超えると、正確な値を取得できない。
+
+
+2.10 マクロ
+
+●MME_MIPMAP
+
+　MMDが、テクスチャのミップマップに対応している場合に定義される。
+
+　○使用例
+
+    sampler ObjTexSampler = sampler_state {
+　      texture = <ObjectTexture>;
+    #ifdef MME_MIPMAP
+        MIPFILTER = LINEAR;
+    #endif
+    };
+
+　○補足
+
+    
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+
+３　スクリプト
+
+テクニックとパスには、スクリプトと呼ばれる特殊なアノテーションを指定することができる。
+
+  technique テクニック名 < string Script = "コマンド; コマンド; ..." ; > { ... }
+  pass パス名 < string Script = "コマンド; コマンド; ..." ; > { ... }
+
+実行時には、これらのコマンドが、記述順に逐次実行される。
+
+このスクリプトを使用することで、レンダリングターゲットの変更やクリア、
+パスのループ処理などを行うことができる。
+
+ポストエフェクトなどの特殊な処理をしないのであれば、通常、スクリプトの指定は不要である。
+テクニックのスクリプトを省略した場合、単にテクニックのパスが順に実行される。
+また、パスのスクリプトを省略した場合、"Draw=Geometry"が実行される。
+
+
+○コマンド
+
+?RenderColorTarget=(テクスチャ名 or 空白)
+?RenderColorTarget0=(テクスチャ名 or 空白)
+?RenderColorTarget1=(テクスチャ名 or 空白)
+?RenderColorTarget2=(テクスチャ名 or 空白)
+?RenderColorTarget3=(テクスチャ名 or 空白)
+　　
+　　レンダリングターゲットを設定する。
+　　RenderColorTargetは、RenderColorTarget0の別名である。
+　　
+　　通常、RenderDepthStencilTargetコマンドとセットで使用する。
+　　また、RenderColorTarget1～3は単独で使用することはできず、必ずRenderColorTarget0とセットで使用する。
+　　
+　　引数には、RENDERCOLORTARGETセマンティクスで宣言されたtextureパラメータの名前を指定する。
+　　デフォルトのレンダリングターゲットにリセットする場合は、空白を指定する。
+　　
+　　なお、設定されたレンダリングターゲットは、再度これらのコマンドを実行しなければ、
+　　テクニックの処理完了まで変更されたままである。
+
+?RenderDepthStencilTarget=(テクスチャ名 or 空白)
+　　
+　　深度ステンシルサーフェイス（いわゆるZバッファ）を設定する。
+　　通常、RenderColorTarget0コマンドとセットで使用する。
+　　
+　　引数には、RENDERDEPTHSTENCILTARGETセマンティクスで宣言されたtextureパラメータの名前を指定する。
+　　デフォルトの深度ステンシルサーフェイスにリセットする場合は、空白を指定する。
+
+?ClearSetColor=(パラメータ名)
+　　
+　　レンダリングターゲットをクリアする色を設定する。（まだクリアはしない）
+　　
+　　引数には、float4型のパラメータの名前を指定する。
+　　このパラメータに設定された値が、レンダリングターゲットをクリアする色となる。
+
+?ClearSetDepth=(パラメータ名)
+　　
+　　深度ステンシルサーフェイスをクリアするZ値を設定する。（まだクリアはしない）
+　　
+　　引数には、float型のパラメータの名前を指定する。
+　　このパラメータに設定された値が、深度ステンシルサーフェイスをクリアするZ値となる。
+
+?Clear=Color
+　　
+　　レンダリングターゲットをクリアする。
+　　クリアする色には、ClearSetColorコマンドで設定された値が使用される。
+
+?Clear=Depth
+　　
+　　深度ステンシルサーフェイスをクリアする。
+　　クリアするZ値には、ClearSetDepthコマンドで設定された値が使用される。
+
+?ScriptExternal=Color
+　　
+　　他のオブジェクトを描画する。
+　　このコマンドは、テクニックのスクリプト上でしか使用できない。
+　　
+　　これは、ポストエフェクト（STANDARDSGLOBALパラメータのScriptOrderアノテーションに
+　　"postprocess"が指定されたエフェクトファイル）でのみ実行できる。
+　　
+　　通常、ポストエフェクトでは、入力用のテクスチャをレンダリングターゲットに設定した上で、
+　　そのテクスチャへ、他のオブジェクトをレンダリングさせる。
+　　この、他のオブジェクトをレンダリングさせる際に、このコマンドを実行する。
+　　（Tipsのポストエフェクトを参照）
+　　
+　　ポストエフェクトでは、テクニックのスクリプト上で、必ず1回だけ実行しなければならない。
+
+?Pass=(パス名)
+　　
+　　指定したパスを実行する。
+　　このコマンドは、テクニックのスクリプト上でしか使用できない。
+　　
+　　テクニックにスクリプトを指定した場合、明示的にこのコマンドを使用しない限り、
+　　いずれのパスも実行されない。
+
+?LoopByCount=(パラメータ名)
+?LoopEnd=
+　　
+　　指定した回数だけ、スクリプトの一部をループする。
+　　このコマンドは、テクニックのスクリプト上でしか使用できない。
+　　
+　　引数には、数値型（int,bool,float）のパラメータの名前を指定する。
+　　このパラメータに設定された値の回数だけ、LoopByCountからLoopEndまでにあるコマンド列が
+　　繰り返し実行される。
+　　ループはネスト可能である。
+　　
+　　以下の例では、3回パスp0が実行された後、パスp1が実行される。
+    
+    /****************************/
+    int Count = 3;
+    
+    technique TShader <
+        string Script =
+            "LoopByCount=Count;"
+            "Pass=p0;"
+            "LoopEnd=;"
+            "Pass=p1;"; 
+    > {
+    /****************************/
+
+?LoopGetIndex=(パラメータ名)
+　　
+　　ループ中のループカウンタの値を、指定したパラメータに設定する。
+　　このコマンドは、LoopByCountからLoopEndまでの間でしか使用できない。
+
+?Draw=Geometry
+　　
+　　オブジェクトを描画する。
+　　このコマンドは、パスのスクリプト上でしか使用できない。
+　　
+　　パスのスクリプトを省略した場合、このコマンドが実行される。
+　　STANDARDSGLOBALのScriptClassに"scene"を指定している場合、
+　　このコマンドを実行してはならない。
+
+?Draw=Buffer
+　　
+　　レンダリングターゲットのスクリーンと一致するサイズの、長方形のポリゴンを描画する。
+　　このコマンドは、パスのスクリプト上でしか使用できない。
+　　
+　　ポストエフェクトやプリエフェクトで使用する。
+　　STANDARDSGLOBALのScriptClassに"object"を指定している場合、
+　　このコマンドを実行してはならない。
+
+?RenderPort=*
+　　
+　　未対応。
+
+
+○使用例
+    technique TShader <
+        /* 2つの文字列表記("～" "～")の間に空白文字しかなければ、
+           それはひと続きの文字列とみなされるため、以下のように分割して記述できる */
+        string Script = 
+            "RenderColorTarget0=RenderTarget;"
+    	    "RenderDepthStencilTarget=DepthBuffer;"
+    		"ClearSetColor=ClearColor;"
+    		"ClearSetDepth=ClearDepth;"
+    		"Clear=Color;"
+    		"Clear=Depth;"
+    	    "ScriptExternal=color;"
+    	    "Pass=P0;" ;
+    > {
+        pass P0 < string Script= "RenderColorTarget0=; RenderDepthStencilTarget=; Draw=Buffer;" ; > {
+            ...
+        }
+    }
+
+
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+
+４　Tips
+
+●MMD標準のシェーダを使用する
+
+　オブジェクトの描画の一部にのみ、エフェクトを使用し、
+　それ以外の描画にはMMD標準のシェーダを使用したい場合には、
+　MMD標準のシェーダを使用したい場面のテクニックを、エフェクトファイルに記述しなければよい。
+　（"1.2 テクニックのアノテーション"を参照）
+　
+　　/************************************************************/
+    /* エフェクトファイルにこのテクニックしか無ければ、
+       オブジェクト描画（セルフシャドウON時）以外はMMD標準のシェーダで描画される */
+      technique Tech1 < string MMDPass = "object_ss"; > {
+          pass Pass1 {
+              ...
+          }
+          pass Pass2 {
+              ...
+          }
+      }
+    /************************************************************/
+　
+　また、パスのデフォルトのシェーダはMMD標準のシェーダであるため、
+　以下のように、パスのVertexShaderやPixelShaderを設定しなければ、
+　そのパスの描画にはMMD標準のシェーダが使用される。
+　
+　　/************************************************************/
+      technique Tech1 < string MMDPass = "object_ss"; > {
+          pass Pass1 {
+            // VertexShader = xxx
+            // PixelShader  = xxx
+          }
+      }
+    /************************************************************/
+　
+
+●空のテクニック
+
+　以下のように、テクニックを空にすると、そのテクニックでは一切描画が行われなくなる。
+　これを利用すると、オブジェクトの一部または全部の描画を抑止することができる。
+
+　　/*********************************************************/
+      technique ShadowTech < string MMDPass = "shadow";  > {
+         
+      }
+　　/*********************************************************/
+
+
+●オブジェクトの有無でパスをON/OFF
+
+　以下のようにスクリプトを記述すると、特定のオブジェクトの表示がONになっている間のみ
+　パスを実行させることができる。
+　これは、真偽値true/falseが数値としては1と0に解釈されることを利用している。
+
+　　/*********************************************************/
+      bool flag : CONTROLOBJECT < string name = "aaa.x"; >;
+      
+      technique Tech1 <
+          string Script =
+              "LoopByCount=flag;"
+              "Pass=Pass1;"
+              "LoopEnd=;"
+               ; 
+      > {
+          pass Pass1 {
+              ...
+          }
+      }
+　　/*********************************************************/
+
+
+●エフェクトファイル間でパラメータを共有
+　
+　通常、異なるエフェクトファイル間でパラメータは共有されない。
+　しかし、パラメータの宣言に"shared"キーワードを指定することにより、
+　同じ名前のパラメータをエフェクトファイル間で共有することができる。
+　
+　以下の例では、effect1.fxで生成したテクスチャを、effect2.fxから参照できる。
+　このように、両方のパラメータ宣言で"shared"キーワードを指定する必要がある。
+　また、名前だけでなく、型名とセマンティクスも一致させるひつようがある。
+　
+　　/************** effect1.fx ******************/
+      
+　　  shared texture ShadowBuffer : RENDERCOLORTARGET <
+          float2 ViewPortRatio = {2.0,2.0};
+          int MipLevels = 1;
+          string Format = "A8R8G8B8" ;
+      >;
+      
+　　/********************************************/
+
+　　/************** effect2.fx ******************/
+      
+　　  shared texture ShadowBuffer : RENDERCOLORTARGET;
+      
+　　/********************************************/
+
+
+●if文
+　
+　描画を高速にしたければ、シェーダを記述する際に、できるだけif文のような条件分岐は
+　使わないほうがよい。
+　
+　テクスチャの有無でシェーダの処理を切り替えるような場合、
+　use_textureパラメータを参照して、シェーダ内のif文で条件分岐するより、
+　テクスチャが有るサブセットと無いサブセットとで、テクニック自体を分けてしまうほうが高速に描画できる。
+
+
+●uniformキーワード
+　
+  関数の引数の宣言に"uniform"キーワードを指定すると、その引数の値をコンパイル時の定数として与えることができる。
+　
+　以下の例では、Basic_PS()内のif文が、コンパイル時に除去されるので、
+　条件分岐による速度低下は避けられる（多分）。
+　
+　　/*******************************************************************/
+　　float4 Basic_PS( VS_OUTPUT IN, uniform bool useTexture ) : COLOR0
+    {
+        float4 Color = IN.Diffuse;
+        if ( useTexture ) {
+            Color *= tex2D( ObjTexSampler, IN.Tex );
+        }
+        ...
+    }
+    
+    technique TechWithTex {
+        pass P1 {
+            /* useTexture=true でシェーダをコンパイル */
+            PixelShader  = compile ps_2_0 Basic_PS(true);  
+            ...
+        }
+    }
+    
+    technique TechWithoutTex {
+        pass P1 {
+            /* useTexture=false でシェーダをコンパイル */
+            PixelShader  = compile ps_2_0 Basic_PS(false);
+            ...
+        }
+    }
+　　/*******************************************************************/
+
+
+●エフェクトファイル内での日本語使用
+　
+　基本的に、コメント部分以外では、エフェクトファイル中に日本語の文字を使用することは推奨しない。
+　
+　あえて使用する場合は、文字コードに注意すること。
+　テクスチャ生成用の画像ファイルのパスやコントロールオブジェクトのオブジェクト名など、
+　ファイル名の指定に日本語を使用する場合は、そのエフェクトファイルの文字コードは
+　必ずShift-JISでなければならない。
+
+
+●ポストエフェクト
+　
+　ポストエフェクト用のエフェクトファイルを作成する場合は、
+　以下のパラメータがエフェクトファイル中で宣言されている必要がある。
+　（"●STANDARDSGLOBAL"を参照）
+
+    float Script : STANDARDSGLOBAL <
+        string ScriptOutput = "color";
+        string ScriptClass = "scene";
+        string ScriptOrder = "postprocess";
+    > = 0.8;
+　
+　
+　また、典型的なポストエフェクトでは、テクニックのスクリプトで以下の処理を行う。
+　
+　(1) レンダリングターゲットを自前のテクスチャに変更し、クリアする。
+      
+　　　スクリプト例：
+        "RenderColorTarget0=(RENDERCOLORTARGETテクスチャ);"
+	    "RenderDepthStencilTarget=(RENDERDEPTHSTENCILTARGETテクスチャ);"
+		"ClearSetColor=(クリアの色);"
+		"ClearSetDepth=(クリアのZ値);"
+		"Clear=Color;"
+		"Clear=Depth;"
+
+　(2) プリエフェクト，オブジェクト，他のポストエフェクトを描画する。
+　　　このとき、描画結果は(1)で指定したテクスチャに保存される。
+
+　　　スクリプト例：
+		"ScriptExternal=Color;"
+　
+　(3) レンダリングターゲットを元に戻し、描画結果のテクスチャを入力として、パスを実行する。
+
+　　　スクリプト例：
+        "RenderColorTarget0=;"
+	    "RenderDepthStencilTarget=;"
+	    "Pass=(パス1);"
+	    "Pass=(パス2);"
