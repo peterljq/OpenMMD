@@ -1,5 +1,6 @@
-OpenMMD
-------
+# OpenMMD
+
+[![language](https://img.shields.io/badge/Language-Python-blue.svg)](https://img.shields.io/badge/Language-Python-blue.svg)
 
 [OpenMMD](https://github.com/peterljq/OpenMMD) represents the OpenPose-based project that can directly **convert real-person videos to the motion of animation models (i.e. Miku, Anmicius)**. OpenMMD can be referred as OpenPose + MikuMikuDance (MMD). In short, you record a piece of video with human motions, through this project you will see a 3D model acting the same motions as what you do in the video.
 
@@ -54,11 +55,11 @@ The projects implements multiple Deep Learning Models as a sequential chain. The
 </p>
 
 
-## Installation and Uninstallation
+## Installation and User Guidelines
 **Download the full pack**: Note that the full application is about 5GB. Thats is mainly because the large size parameters of the pre-trained deep learning models. Download the whole pack contains the **pre-trained models with optimized parameters and corresponding compilable codes**. 
 
 - [Google Drive](https://drive.google.com/file/d/197CWR_aOAd4vNflhWlxWmRVsAmeG5S1F/view?usp=sharing)
-- [Baidu Netdisk （Temporarily Unavailable）](https://baidu.com)
+- [Baidu Netdisk (Temporarily Unavailable)](https://baidu.com)
 
 **Follow the instruction to begin your first animation**: 
 Most of the detailed instructions are contained in the xxx.bat files of each steps below. Please kindly refer to that.
@@ -112,4 +113,6 @@ This project is an open source project. Let me know if:
 
 Just comment on GitHub or make a pull request and I will answer as soon as possible!
 
-If you appreciate the project, please kindly star it. Feel free to fork it and develop your own 3D animations! Thank you for your time.
+If you appreciate the project, please kindly star it. :D Feel free to download and develop your own 3D animations.
+
+Thank you for your time! 
