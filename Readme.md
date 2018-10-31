@@ -1,7 +1,7 @@
 OpenMMD
 ------
 
-[OpenMMD](https://github.com/peterljq/OpenMMD) represents the OpenPose-based project that can directly **convert real-person videos to the motion of animation models (i.e. Miku, Anmicius)**. OpenMMD can be referred as OpenPose + MikuMikuDance (MMD). 
+[OpenMMD](https://github.com/peterljq/OpenMMD) represents the OpenPose-based project that can directly **convert real-person videos to the motion of animation models (i.e. Miku, Anmicius)**. OpenMMD can be referred as OpenPose + MikuMikuDance (MMD). In short, you record a piece of video with human motions, through this project you will see a 3D model acting the same motions as you do in the video.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/peterljq/OpenMMD/master/Readme%20Materials/OpenMMD-Anmicius-Static.jpg" width="240">
