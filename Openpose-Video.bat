@@ -1,17 +1,5 @@
 ﻿@echo off
-
-rem --- 
-
-rem ---  
-
-rem --- 
-
-
-
-
 cd /d %~dp0
-
-
 
 rem ---  access the video
 
@@ -23,8 +11,6 @@ set /P INPUT_VIDEO=■the path of video:
 
 rem echo INPUT_VIDEO：%INPUT_VIDEO%
 
-
-
 IF /I "%INPUT_VIDEO%" EQU "" (
 
     ECHO Input error, the analysis terminates.
@@ -34,9 +20,7 @@ IF /I "%INPUT_VIDEO%" EQU "" (
 )
 
 
-
 rem ---  Max number of people in the video
-
 
 echo --------------
 
@@ -51,11 +35,7 @@ set /P NUMBER_PEOPLE_MAX="Max number of people in the video: "
 
 
 rem --echo NUMBER_PEOPLE_MAX: %NUMBER_PEOPLE_MAX%
-
-
-
 rem -----------------------------------
-
 rem --- Video input
 
 FOR %%1 IN (%INPUT_VIDEO%) DO (
@@ -66,41 +46,18 @@ FOR %%1 IN (%INPUT_VIDEO%) DO (
 
 )
 
-
-
-
-
 set DT=%date%
-
-
-
 set TM=%time%
-
-
-
 set TM2=%TM: =0%
-
-
-
 set DTTM=%dt:~0,4%%dt:~5,2%%dt:~8,2%_%TM2:~0,2%%TM2:~3,2%%TM2:~6,2%
 
 
-
 echo --------------
-
-
-
 rem ------------------------------------------------
-
 rem -- output json files
 set OUTPUT_JSON_DIR=%INPUT_VIDEO_DIR%_json
-
 rem echo %OUTPUT_JSON_DIR%
-
-
-
 mkdir %OUTPUT_JSON_DIR%
-
 echo JSON files will be outputted: %OUTPUT_JSON_DIR%
 
 
@@ -112,7 +69,6 @@ set OUTPUT_VIDEO_PATH=%INPUT_VIDEO_DIR%_openpose.avi
 echo Output AVI files：%OUTPUT_VIDEO_PATH%
 
 
-
 echo --------------
 
 echo Openpose started.
@@ -122,10 +78,7 @@ echo Press ESC to break the process.
 echo --------------
 
 
-
-
 bin\OpenPoseDemo.exe --video %INPUT_VIDEO% --write_json %OUTPUT_JSON_DIR% --write_video %OUTPUT_VIDEO_PATH% --number_people_max %NUMBER_PEOPLE_MAX% 
-
 
 
 echo --------------
