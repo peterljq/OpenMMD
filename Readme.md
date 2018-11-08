@@ -15,7 +15,7 @@
 - OpenPose and MMD are only the "entrance" and "exit" of the application box. There are three intermediate pre-trained Deep Learning Models in the box to process and convert formatted data. They are stated in the Features section below.
 
 ## Features
-The projects implements multiple Deep Learning Models as a sequential chain. The output of the previous model will be fed as the input of the following. Some implementations are the editted version of the original for better performance in the application.
+The projects implements multiple Deep Learning Models as a sequential chain. The output of the previous model will be fed as the input of the following. Some implementations are the edited version of the original for better performance in the application.
 - **Functionality**:
     - **3D Single-person Key Points Detection (OpenPose):**
         - **Proposed by Gines Hidalgo, Zhe Cao, Tomas Simon, Shih-En Wei, Hanbyul Joo, and Yaser Sheikh at CVPR 2017**.
