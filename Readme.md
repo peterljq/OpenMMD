@@ -17,16 +17,19 @@
 ## Features
 The project implements multiple Deep Learning Models as a sequential chain. The output of the previous model will be fed as the input of the following. Some implementations are the edited version of the original for better performance in the application.
 - **Functionality**:
-    - **3D Single-person Key Points Detection (OpenPose):**
+    - **3D Single-person Key Points Detection (OpenPose)**:
         - **Proposed by Gines Hidalgo, Zhe Cao, Tomas Simon, Shih-En Wei, Hanbyul Joo, and Yaser Sheikh at CVPR 2017**.
         - Recoded real-person video input and JSON files collections of motion key points as the output.
-    - **Strong Baseline for 3D Human Pose Estimation**: 
+    - **Strong Baseline for 3D Human Pose Estimation**:
         - **Proposed by Julieta Martinez, Rayat Hossain, Javier Romero, James J. Little In ICCV, 2017**. An effective baseline for 3d human pose estimation.
         - Combining all the key points JSON files to a continuous sequence with strong baselines.
+    - **Unsupervised Adversarial Learning of 3D Human Pose from 2D Joint Locations** (Newly added feature. Under testing.):
+        - **Proposed by Yasunori Kudo, Keisuke Ogaki, Yusuke Matsui, Yuri Odagiri at CVPR 2018**. The task of 3D human pose estimation from a single image can be divided into two parts: (1) 2D human joint detection from the image and (2) estimating a 3D pose from the 2D joints.
+        - Implemented by @DwangoMediaVillage to fit to VMD format. Use of GAN will significantly improve the performance during the converting process than what achived by using the baseline methods.
     - **Video Depth Prediction**:
         - **Proposed by Iro Laina and Christian Rupprecht at the IEEE International Conference on 3D Vision 2016**. FCRN: Deeper Depth Prediction with Fully Convolutional Residual Networks.
         - Estimation of depth for objects, backgrounds and the moving person in the video (e.g. dancer).
-    - **Human Motion Key Points to VMD Motion Files for MMD Build** 
+    - **Human Motion Key Points to VMD Motion Files for MMD Build**:
         - **Proposed by Denis Tome, Chris Russell and Lourdes Agapito at CVPR 2017**. Convolutional 3D Pose Estimation from a single image.
         - Edited by @miu200521358 to output VMD files so that the formatted result can be directly fed to MMD for generating animated dancing movies.
 - **Input**: videos of common formats (AVI, WAV, MOV) or images of common formats (PNG, JPG), 
