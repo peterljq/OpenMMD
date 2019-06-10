@@ -35,6 +35,7 @@ The project implements multiple Deep Learning Models as a sequential chain. The 
 - **Input**: videos of common formats (AVI, WAV, MOV) or images of common formats (PNG, JPG), 
 - **Output**: Animations or Posetures of 3D models (e.g. Miku Dancing)
 - **OS**: Windows (8, 10), MacOS (2017 Released Version)
+- **Demo Video**: [Youtube Link](https://www.youtube.com/watch?v=5F7USPB2QPc) made by Jacob Xie.
 
 ## Example Presentation
 ### I. Record a piece of real-person motion video
@@ -65,7 +66,6 @@ The project implements multiple Deep Learning Models as a sequential chain. The 
 - [Baidu Netdisk (Temporarily Unavailable)](https://baidu.com)
 
 **Follow the instruction to begin your first animation**: 
-Most of the detailed instructions are contained in the xxx.bat files of each steps below. Please kindly refer to that.
 - Record a piece of video contains human motions. Satisfy all the prerequisite libraries stated below.
 - After downloading, firstly **activate tensorflow** environment in the terminal of anaconda.
 - Run OpenposeVideo.bat and follow the pop-out instructions.
@@ -74,6 +74,8 @@ Most of the detailed instructions are contained in the xxx.bat files of each ste
 - Finally, proceed to the VMD-3d-pose-baseline-multi folder and run 3DToVMD.bat. You will get the vmd file.
 - VMD files are 3D animation file used by **MikuMikuDance**, a program used to create dance animation movies. Open your MikuMikuDance and input the VMD file.
 - You will see your Miku begin acting the same motions as that in your recorded video.
+
+**Tutorial in Chinese (中文教程)**: Developers that can understand Chinese are encouraged to read the tutorial written by [@mrzjy](https://github.com/mrzjy) on Bilibili Articles: [Click Here](https://www.bilibili.com/read/cv2835857). This tutorial covers how to install and run the OpenMMD. The tutorial also introduces some common issues of OpenMMD. 
 
 ## Library Dependencies
 - OpenCV and relevance
@@ -105,6 +107,8 @@ pip install imageio
 I would like to give special thanks for the contribution from [Zhang Xinyi](https://github.com/zhangxinyi0106). As an expert in Photoshop and Video Processing, He offered great help in recording and processing the sample images and videos. He also offered nice ideas on how to improve video smoothing performance.
 
 I would like to say special thanks to [@miu200521358](https://github.com/miu200521358) who provides a series of detailed tutorials on OpenPose and relevant models. That really promotes my implementation progress. His versions of model implementations are also of great help. I learn a lot from his instructions on anaconda and tensorflow.
+
+I would like to give special thanks to [@mrzjy](https://github.com/mrzjy) from Bilibili who writes a very detailed Chinese tutorial on how to install and run OpenMMD. This tutorial covers detailed steps and possible bugs when using the project. The quality of the tutorial is very high. 哔哩哔哩(゜-゜)つロ干杯!
 
 ## Feedback
 This project is an open source project. Let me know if:
