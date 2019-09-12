@@ -87,11 +87,11 @@ pip install matplotlib
 - Tensorflow and h5py. Please implement them in **anaconda**.
 ```
 pip install tensorflow
-conda create -n tensorflow pip python=3.6 // Create a workbench
+conda create -n tensorflow pip python=3.6
 activate tensorflow
 pip install --ignore-installed --upgrade tensorflow
 conda install h5py
-//You will also need to install Keras in anaconda.
+conda install keras
 
 ```
 - Other libraries includes: 
