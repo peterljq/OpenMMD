@@ -35,7 +35,6 @@ The project implements multiple Deep Learning Models as a sequential chain. The 
 - **Input**: videos of common formats (AVI, WAV, MOV) or images of common formats (PNG, JPG), 
 - **Output**: Animations or Posetures of 3D models (e.g. Miku Dancing)
 - **OS**: Windows (8, 10), MacOS (2017 Released Version)
-- **Demo Video**: [Youtube Link](https://www.youtube.com/watch?v=5F7USPB2QPc) made by Jacob Xie.
 
 ## Example Presentation
 ### I. Record a piece of real-person motion video
@@ -104,7 +103,7 @@ pip install imageio
 ```
 
 ## Special Thanks
-I would like to give special thanks for the contribution from [Zhang Xinyi](https://github.com/zhangxinyi0106). As an expert in Photoshop and Video Processing, He offered great help in recording and processing the sample images and videos. He also offered nice ideas on how to improve video smoothing performance.
+I would like to give special thanks for the contribution from [@zhangxinyi0106](https://github.com/zhangxinyi0106). As an expert in Photoshop and Video Processing, He offered great help in recording and processing the sample images and videos. He also offered nice ideas on how to improve video smoothing performance.
 
 I would like to say special thanks to [@miu200521358](https://github.com/miu200521358) who provides a series of detailed tutorials on OpenPose and relevant models. That really promotes my implementation progress. His versions of model implementations are also of great help. I learn a lot from his instructions on anaconda and tensorflow.
 
